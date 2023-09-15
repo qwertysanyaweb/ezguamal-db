@@ -1,0 +1,36 @@
+<div class='auth__wrap-bg'>
+  <div class='auth__wrap-body'>
+    <form [formGroup]='form'>
+      <div class='formGroup'>
+        <div class='auth__title'>{{"AUTH.LOGIN.TITLE" | translate}}</div>
+      </div>
+      <div class='formGroup'>
+        <label>
+          <div class='formGroup__title'>{{"AUTH.LABEL.USERNAME.TITLE" | translate}} <span>*</span></div>
+          <input appDynamicValidatorMessage formControlName='username'
+                 placeholder='{{"AUTH.LABEL.USERNAME.PLACEHOLDER" | translate}}'
+                 type='text'>
+        </label>
+      </div>
+      <div class='formGroup'>
+        <label>
+          <div class='formGroup__title'>{{"AUTH.LABEL.PASSWORD.TITLE" | translate}} <span>*</span></div>
+          <input appDynamicValidatorMessage formControlName='password'
+                 placeholder='{{"AUTH.LABEL.PASSWORD.PLACEHOLDER" | translate}}'
+                 type='password'>
+        </label>
+      </div>
+    </form>
+    <div class='formGroup'>
+      <div class='formGroup__db'>
+        <div class='formGroup__db-grow'>
+          <button (click)='submit()' [disabled]='form.invalid ' [spinner]='sendForm'
+                  class='siteButton block' type='submit'>{{"BUTTON.LOGIN" | translate}}</button>
+        </div>
+        <select (change)='selectLanguage(language)' [(ngModel)]='language' style='width: 90px'>
+          <option *ngFor='let language of languages' [ngValue]='language'>{{language | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>

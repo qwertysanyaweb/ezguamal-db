@@ -1,0 +1,13 @@
+<div class='auth'>
+  <div class='auth__wrap'>
+    <div class='auth__logo'>
+      <img alt='' src='assets/images/logo.svg'>
+      <div class='auth__logo-text'>
+        <span>{{ "SYSTEM.TITLE" | translate }}</span>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+    <div [innerHTML]="'AUTH.COPYRIGHT' | translate" class='auth__copyright'>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "SYSTEM": {
+    "TITLE": "DATABASE"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Вход в систему"
+    },
+    "LABEL": {
+      "USERNAME": {
+        "TITLE": "Введите логин",
+        "PLACEHOLDER": "Ваш логин"
+      },
+      "PASSWORD": {
+        "TITLE": "Введите пароль",
+        "PLACEHOLDER": "Ваш пароль"
+      }
+    },
+    "COPYRIGHT": "Официальный сайт фонда <a href='https://ezguamal.org/' target='_blank'>ezguamal.org</a>"
+  },
+  "BUTTON": {
+    "LOGIN": "Войти"
+  }
+}

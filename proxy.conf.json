@@ -1,0 +1,7 @@
+{
+  "/wp-json/*": {
+    "target": "http://ezguamal-bd.loc/",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

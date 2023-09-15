@@ -1,0 +1,10 @@
+{
+  "SYSTEM": {
+    "TITLE": "DATABASE"
+  },
+  "AUTH": {
+    "LOGIN": {
+      "TITLE": "Вход в систему"
+    }
+  }
+}
