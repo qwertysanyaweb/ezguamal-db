@@ -1,6 +1,16 @@
 @charset "utf-8";
 
+$color1: #f0f7fd;
+$color2: #3db549;
+$color3: #65B1EF;
+$color4: #a82682;
+
+
 @import 'angular-notifier/styles.scss';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "assets/css/grid";
+@import "assets/css/ng-select-custom";
+@import "ngx-bootstrap/datepicker/bs-datepicker.css";
 
 * {
   box-sizing: border-box
@@ -56,12 +66,6 @@
 
 $r: 'Gotham Pro', sans-serif;
 
-$color1: #f0f7fd;
-$color2: #3db549;
-$color3: #65B1EF;
-$color4: #a82682;
-
-
 body, html {
   height: 100%;
 }
@@ -73,6 +77,10 @@ body {
   color: #000;
   font-family: $r;
   background: $color1;
+
+  &.jw-modal-open {
+    overflow: hidden;
+  }
 }
 
 input, textarea, select, button {
@@ -147,6 +155,32 @@ a {
   transition: all 0.4s ease;
 }
 
+p {
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h3 {
+  font-size: 20px;
+}
+
 /* Общие компоненты */
 .formGroup {
   display: block;
@@ -164,6 +198,7 @@ a {
   &__title {
     font-size: 16px;
     margin-bottom: 7px;
+    display: block;
 
     span {
       color: #f00;
@@ -203,10 +238,19 @@ a {
   color: #fff;
   gap: 10px;
   background: linear-gradient(180deg, $color2 0%, darken($color2, 5%) 100%);
+  transition: none;
 
   &.block {
     display: flex;
     width: 100%;
+  }
+
+  &.padding {
+    padding: 0 20px;
+  }
+
+  &.min {
+    min-height: 40px;
   }
 
   &:hover {
@@ -216,6 +260,32 @@ a {
   &:active {
     background: darken($color2, 5%);
     box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  &.blue {
+    background: linear-gradient(180deg, $color3 0%, darken($color3, 4%) 100%);
+
+    &:hover {
+      background: darken($color3, 5%);
+    }
+
+    &:active {
+      background: darken($color3, 5%);
+      box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &.grey {
+    background: linear-gradient(180deg, #787878 0%, darken(#787878, 4%) 100%);
+
+    &:hover {
+      background: darken(#787878, 5%);
+    }
+
+    &:active {
+      background: darken(#787878, 5%);
+      box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+    }
   }
 
   &:disabled {
@@ -238,7 +308,7 @@ a {
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 20px;
   bottom: 20px;
@@ -364,6 +434,40 @@ a {
   &__overflow {
     overflow-x: auto;
   }
+
+  &__padding {
+    padding: 20px;
+  }
+
+  &__table {
+    border-radius: 20px;
+    overflow: hidden;
+
+    .spinner-container {
+      &:before {
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 2;
+      }
+
+      .spinner-load {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        z-index: 3;
+      }
+    }
+  }
+
+  &__block {
+    margin-top: 20px;
+
+    &:first-child {
+      margin: 0;
+    }
+  }
 }
 
 .table {
@@ -375,8 +479,18 @@ a {
   overflow: hidden;
   text-align: center;
 
-  tr:nth-child(even) {
-    background: lighten($color1, 2%);
+  tr {
+    &:nth-child(even) {
+      background: lighten($color1, 2%);
+    }
+
+    &:hover {
+      background: lighten($color1, 1%);
+    }
+
+    &:first-child:hover {
+      background: none;
+    }
   }
 
   th {
@@ -384,8 +498,33 @@ a {
     font-weight: 500;
     border-left: 1px solid $color1;
 
+    div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: center;
+    }
+
+    span {
+      vertical-align: middle;
+      line-height: 0;
+      font-size: 0;
+
+      &.rotate {
+        transform: rotate(180deg);
+      }
+
+      img {
+        width: 23px;
+      }
+    }
+
     &:first-child {
       border-left: 0;
+    }
+
+    &:hover {
+      background: lighten($color1, 2%);
     }
   }
 
@@ -396,6 +535,32 @@ a {
 
     &:first-child {
       border-left: 0;
+    }
+  }
+
+  &__pay-system {
+    img {
+      max-width: 70px;
+    }
+  }
+
+  &__th {
+    &-sort {
+      cursor: pointer;
+    }
+  }
+}
+
+.filter {
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    &-right {
+      display: flex;
+      gap: 15px;
     }
   }
 }
@@ -470,6 +635,13 @@ a {
   }
 }
 
+.loading {
+  &__text {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
 /* МОДУЛИ */
 
 
@@ -506,7 +678,6 @@ a {
     width: 25px;
     min-width: 25px;
     height: 25px;
-    margin: auto;
     z-index: 1;
     display: none;
 
@@ -550,6 +721,328 @@ a {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+.bs-datepicker {
+  box-shadow: none;
+
+  &-container {
+    padding: 0;
+    margin-top: 5px;
+  }
+
+  &-body {
+    table {
+      &.days {
+        th:first-child, td:first-child {
+          display: none;
+        }
+      }
+
+      td {
+        color: #000;
+      }
+    }
+  }
+}
+
+.theme-green .bs-datepicker-head {
+  background: $color2;
+}
+
+.filter {
+  border-radius: 10px 0 0 10px;
+  background: #fff;
+  max-width: 650px;
+  padding: 30px;
+  margin-left: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: 20px;
+    font-weight: 500;
+
+    &-wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &__close {
+    cursor: pointer;
+
+    svg {
+      width: 30px;
+      height: 30px;
+      display: block;
+    }
+  }
+
+  &__button {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}
+
+jw-modal {
+  display: none;
+
+  .jw-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+
+    &-body {
+      width: 100%;
+      flex-grow: 2;
+      overflow-y: auto;
+    }
+  }
+
+}
+
+.pagination {
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__pageCount {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 10px;
+
+    input {
+      width: 40px;
+      padding: 5px;
+      text-align: center;
+      -moz-appearance: textfield;
+      border: 1px solid $color2;
+      background: #fff;
+      height: 40px;
+      line-height: 40px;
+
+      &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    select {
+      border: 1px solid $color2;
+      background-color: #fff;
+      height: 40px;
+      line-height: 40px;
+    }
+
+    button {
+      min-width: 40px;
+      width: 40px;
+      min-height: 40px;
+      height: 40px;
+    }
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+
+    &:before, &:after {
+      display: none;
+    }
+
+    li {
+      border: 0;
+      padding: 0 !important;
+      margin: 0 0 0 8px !important;
+
+      &.small-screen {
+        display: none !important;
+      }
+
+      &:first-child {
+        margin: 0 !important;
+      }
+
+      &.current {
+        background: none;
+
+        span {
+          color: #fff;
+        }
+      }
+
+      &:first-child {
+        border: 0;
+      }
+
+      > a, > span {
+        min-width: 40px;
+        display: block;
+        height: 40px;
+        white-space: nowrap;
+        padding: 0 6px;
+        line-height: 40px;
+        text-align: center;
+        text-decoration: none;
+        background: #FAFAFA;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: none;
+
+        > span {
+          display: block;
+          line-height: 40px;
+        }
+      }
+
+      > a {
+        border: 1px solid $color2;
+
+        &:hover {
+          background: $color2;
+          border-color: $color2;
+          color: #fff;
+        }
+      }
+
+      > span {
+        border-color: $color2;
+        background: $color2;
+        color: #fff;
+
+        > span {
+          &:first-child {
+            display: none !important;
+          }
+        }
+      }
+
+      .show-for-sr {
+        display: none;
+      }
+
+    }
+  }
+
+  &-next, &-previous {
+    &:before, &:after {
+      display: none !important;
+    }
+
+    a {
+      &:before, &:after {
+        display: none !important;
+      }
+    }
+  }
+
+  &-previous, &-next {
+    span, a {
+      font-size: 0 !important;
+      line-height: 0 !important;
+
+      &:before {
+        font-size: 16px;
+        line-height: 38px;
+        content: '<' !important;
+        margin: 0 !important;
+        display: block !important;
+      }
+    }
+  }
+
+  &-next {
+    span, a {
+      &:before {
+        content: '>' !important;
+      }
+    }
+  }
+
+}
+
+.donateModal {
+  border-radius: 10px;
+  background: #fff;
+  max-width: 650px;
+  padding: 30px;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h3 {
+      margin: 0;
+    }
+  }
+
+  &__result {
+    border-right: 1px solid $color1;
+    border-bottom: 1px solid $color1;
+    margin-top: 30px;
+
+    table {
+      border-spacing: 0;
+      width: 100%;
+      text-align: center;
+
+      tr {
+        th {
+          white-space: nowrap;
+          font-weight: 500;
+        }
+
+        th, td {
+          padding: 15px;
+          border-left: 1px solid $color1;
+          border-top: 1px solid $color1;
+        }
+
+        td {
+          padding: 5px 15px;
+          white-space: nowrap;
+          height: 49px;
+        }
+      }
+
+      img {
+        max-height: 25px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      input {
+        width: 126px;
+        text-align: center;
+        margin: -6px -16px;
+        border-radius: 0;
+        position: relative;
+
+        &:focus {
+          z-index: 2;
+        }
+
+        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      }
+    }
   }
 }
 

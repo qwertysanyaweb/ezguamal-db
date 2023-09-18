@@ -1,6 +1,6 @@
 {
   "/wp-json/*": {
-    "target": "http://ezguamal-bd.loc/",
+    "target": "https://db.ezguamal.org/",
     "secure": false,
     "changeOrigin": true
   }

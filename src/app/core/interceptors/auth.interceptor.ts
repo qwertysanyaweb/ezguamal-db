@@ -10,6 +10,8 @@ import { token } from '../interfaces/user';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  refresh: boolean = false;
+
   constructor(
     @Inject(LOCAL_STORAGE) private readonly localStorage: Storage,
     private authService: CoreUsersService,
@@ -19,7 +21,6 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const refreshTokenUrl = 'api-bearer-auth/v1/tokens/refresh';
-    let refresh = false;
     let accessToken = this.localStorage.getItem('access_token');
     let refreshToken = this.localStorage.getItem('refresh_token');
 
@@ -37,14 +38,14 @@ export class AuthInterceptor implements HttpInterceptor {
           return throwError(err);
         }
 
-        if (err.status === 401 && !refresh && req.url === refreshTokenUrl) {
+        if (err.status === 401 && !this.refresh && req.url === refreshTokenUrl) {
           this.authService.setIsAuth(false);
           this.authService.logout();
           return throwError(err);
         }
 
-        if (err.status === 401 && !refresh) {
-          refresh = true;
+        if (err.status === 401 && !this.refresh) {
+          this.refresh = true;
           return this.apiService
             .post(refreshTokenUrl, { token: refreshToken })
             .pipe(
@@ -53,7 +54,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 this.localStorage.setItem('access_token', res.access_token);
                 accessToken = res.access_token;
                 this.authService.setIsAuth(true);
-                refresh = false;
+                this.refresh = false;
                 return next.handle(
                   request.clone({
                     setHeaders: {
@@ -63,7 +64,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 );
               }),
               catchError((error) => {
-                refresh = false;
+                this.refresh = false;
                 this.authService.setIsAuth(false);
                 this.authService.logout();
                 return throwError(error);

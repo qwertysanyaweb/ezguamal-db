@@ -27,8 +27,89 @@
     },
     "COPYRIGHT": "Официальный сайт фонда <a href='https://ezguamal.org/' target='_blank'>ezguamal.org</a>"
   },
+  "DONATE": {
+    "TABLE": {
+      "DATE": "Дата перевода",
+      "ID": "ID подопечного",
+      "NAME": "ФИО",
+      "AMOUNT": "Сумма",
+      "SYSTEM": "Система",
+      "PERCENT": "Процент",
+      "RESULT": "Результат"
+    },
+    "FILTER": {
+      "ID": {
+        "TITLE": "ID подопечного",
+        "PLACEHOLDER": "Введите ID подопечного"
+      },
+      "NAME": {
+        "TITLE": "ФИО",
+        "PLACEHOLDER": "Введите ФИО подопечного"
+      },
+      "SYSTEM": {
+        "TITLE": "Платежная система",
+        "PLACEHOLDER": "Выберите из списка"
+      },
+      "DATE_FROM": {
+        "TITLE": "Дата перевода с",
+        "PLACEHOLDER": "Выбирете дату"
+      },
+      "DATE_TO": {
+        "TITLE": "Дата перевода по",
+        "PLACEHOLDER": "Выбирете дату"
+      },
+      "AMOUNT": {
+        "TITLE": "Сумма",
+        "PLACEHOLDER": "Введите сумму"
+      }
+    },
+    "REPORT": {
+      "TITLE": "Сформировать отчет",
+      "ID": {
+        "TITLE": "ID подопечного",
+        "PLACEHOLDER": "Введите ID подопечного"
+      },
+      "SYSTEM": {
+        "TITLE": "Платежная система",
+        "PLACEHOLDER": "Выберите из списка"
+      },
+      "DATE_FROM": {
+        "TITLE": "Дата с",
+        "PLACEHOLDER": "Выбирете дату"
+      },
+      "DATE_TO": {
+        "TITLE": "Дата по",
+        "PLACEHOLDER": "Выбирете дату"
+      },
+      "GENERATE": "Сформировать"
+    }
+  },
   "BUTTON": {
     "LOGIN": "Войти",
-    "EXIT": "Выход"
+    "EXIT": "Выход",
+    "FILTER": "Фильтр",
+    "REPORT_GENERATE": "Сформировать отчет",
+    "APPLY": "Применить",
+    "CLEAR": "Очистить"
+  },
+  "MESSAGE": {
+    "LOAD": "Пожалуйста подождите, идет загрузка данных",
+    "EMPTY_LIST": "Cписок пуст"
+  },
+  "SELECT": {
+    "CLEAR_TEXT": "Очистить",
+    "FILTER_TEXT": "Данные не найдены",
+    "PLACEHOLDER": "Выбрать из списка"
+  },
+  "FILTER": {
+    "TITLE": "Фильтр",
+    "LOAD": "Загрузка фильтра",
+    "RESET": "Сбросить фильтр"
+  },
+  "PAGINATION": {
+    "COUNT_POST": "Всего записей",
+    "NUMBER_OF_PAGES_SELECT": "Показать",
+    "SELECT": "Перейти на страницу",
+    "TOTAL": "из {{ total }}"
   }
 }

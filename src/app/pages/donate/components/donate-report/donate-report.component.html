@@ -1,0 +1,103 @@
+<div class='donateModal'>
+  <form [formGroup]='form'>
+    <div class='row'>
+      <div class='col-12 donateModal__title'>
+        <h3>{{ "DONATE.REPORT.TITLE" | translate }}</h3>
+        <div (click)='close()' class='filter__close'>
+          <svg data-name='Layer 1' height='512' id='Layer_1' viewBox='0 0 24 24' width='512'
+               xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='m15.854,8.854l-3.146,3.146,3.146,3.146c.195.195.195.512,0,.707-.098.098-.226.146-.354.146s-.256-.049-.354-.146l-3.146-3.146-3.146,3.146c-.098.098-.226.146-.354.146s-.256-.049-.354-.146c-.195-.195-.195-.512,0-.707l3.146-3.146-3.146-3.146c-.195-.195-.195-.512,0-.707s.512-.195.707,0l3.146,3.146,3.146-3.146c.195-.195.512-.195.707,0s.195.512,0,.707Zm8.146,3.146c0,6.617-5.383,12-12,12S0,18.617,0,12,5.383,0,12,0s12,5.383,12,12Zm-1,0c0-6.065-4.935-11-11-11S1,5.935,1,12s4.935,11,11,11,11-4.935,11-11Z' />
+          </svg>
+        </div>
+      </div>
+      <div class='col-12'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "DONATE.REPORT.ID.TITLE" | translate }} <span>*</span></span>
+          <input appDynamicValidatorMessage formControlName='id'
+                 placeholder='{{ "DONATE.REPORT.ID.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-12'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "DONATE.REPORT.SYSTEM.TITLE" | translate }} <span>*</span></span>
+          <ng-select
+            [clearSearchOnAdd]='true'
+            [clearable]='true'
+            [closeOnSelect]='false'
+            [items]='system'
+            [multiple]='true'
+            appDynamicValidatorMessage
+            bindLabel='name'
+            bindValue='id'
+            clearAllText='{{ "SELECT.CLEAR_TEXT" | translate }}'
+            formControlName='systems'
+            notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
+            placeholder='{{ "DONATE.REPORT.SYSTEM.PLACEHOLDER" | translate }}'
+          >
+          </ng-select>
+        </label>
+      </div>
+      <div class='col-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "DONATE.REPORT.DATE_FROM.TITLE" | translate }} <span>*</span></span>
+          <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                 appDynamicValidatorMessage
+                 bsDatepicker
+                 formControlName='dateFrom'
+                 placeholder='{{ "DONATE.REPORT.DATE_FROM.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "DONATE.REPORT.DATE_TO.TITLE" | translate }} <span>*</span></span>
+          <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                 appDynamicValidatorMessage
+                 bsDatepicker
+                 formControlName='dateTo'
+                 placeholder='{{ "DONATE.REPORT.DATE_TO.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-12'>
+        <button (click)='submit()' [disabled]='form.invalid ' [spinner]='sendForm' class='siteButton block'
+                type='submit'>{{ "DONATE.REPORT.GENERATE" | translate }}</button>
+      </div>
+    </div>
+  </form>
+  <div *ngIf='result.length > 0' class='row donateModal__result'>
+    <div class='col-12'>
+      <table>
+        <tr>
+          <th>{{ "DONATE.TABLE.SYSTEM" | translate }}</th>
+          <th>{{ "DONATE.TABLE.AMOUNT" | translate }}</th>
+          <th style='width:125px'>{{ "DONATE.TABLE.PERCENT" | translate }}</th>
+          <th>{{ "DONATE.TABLE.RESULT" | translate }}</th>
+        </tr>
+        <tr *ngFor='let item of result; let i = index;'>
+          <td>
+            <div [ngSwitch]='item.system' class='table__pay-system'>
+              <ng-container *ngSwitchCase='DonateEnum.CLICK'>
+                <img alt='' src='assets/images/click-logo.webp'>
+              </ng-container>
+              <ng-container *ngSwitchCase='DonateEnum.UZUM'>
+                <img alt='' src='assets/images/uzum-bank.webp'>
+              </ng-container>
+              <ng-container *ngSwitchCase='DonateEnum.PAYME'>
+                <img alt='' src='assets/images/payme-logo.webp'>
+              </ng-container>
+              <ng-container *ngSwitchCase='DonateEnum.VISA'>
+                <img alt='' src='assets/images/visa.webp'>
+              </ng-container>
+              <ng-container *ngSwitchDefault>{{ item.system }}</ng-container>
+            </div>
+          </td>
+          <td>{{ numberWithCommas(item.amount) }} {{ item.currency }}</td>
+          <td>
+            <input (keyup)='changePercent($event , i)' *ngIf='item.amount > 0' type='number'>
+          </td>
+          <td>{{ numberWithCommas(item.result) }} {{ item.currency }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

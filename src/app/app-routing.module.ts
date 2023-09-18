@@ -18,6 +18,10 @@ const routes: Routes = [
         path: 'charity',
         loadChildren: () => import('./pages/charity/charity.module').then((m) => m.CharityModule),
       },
+      {
+        path: 'donate',
+        loadChildren: () => import('./pages/donate/donate.module').then((m) => m.DonateModule),
+      },
     ],
   },
   {

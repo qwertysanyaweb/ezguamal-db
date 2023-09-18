@@ -1,0 +1,93 @@
+<ng-container *ngIf='loadingData'>
+  <div class='loading__text'>
+    <div [spinner]='true'>
+      {{ "MESSAGE.LOAD" | translate }}
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf='!loadingData'>
+  <div class='content__block'>
+    <div class='filter__control'>
+      <div class='filter__control-left'>
+        {{ "PAGINATION.COUNT_POST" | translate }}: {{ pagination.total }}
+      </div>
+      <div class='filter__control-right'>
+        <button (click)='openModal("donateReport")' class='siteButton min padding blue'
+                type='button'>{{ "BUTTON.REPORT_GENERATE" | translate }}</button>
+        <button (click)='openModal("donateFilter")' class='siteButton min padding'
+                type='button'>{{ "BUTTON.FILTER" | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class='content__block'>
+    <div class='content__bg'>
+      <div *ngIf='donates.length > 0' class='content__overflow'>
+        <div class='content__table'>
+          <table [spinner]='changeData' class='table'>
+            <tr>
+              <ng-container *ngFor='let th of table; let i = index'>
+                <th (click)='donateSort(th.value , th.sort , i)' class='table__th-sort'>
+                  <div>
+                    {{ th.name | translate }}
+                    <span *ngIf='th.showSort' [ngClass]="th.sort ? 'rotate' : ''">
+                      <img alt='' src='assets/images/angle-small-down.svg'>
+                    </span>
+                  </div>
+                </th>
+              </ng-container>
+            </tr>
+            <tr *ngFor='let donate of donates | paginate
+                : {
+                    itemsPerPage: pagination.posts_per_page,
+                    currentPage: pagination.currentPage,
+                    totalItems: pagination.total
+                  }'>
+              <td style='padding:5px; font-size:0; line-height: 0;'>
+                <div [ngSwitch]='donate.system' class='table__pay-system'>
+                  <ng-container *ngSwitchCase='DonateEnum.CLICK'>
+                    <img alt='' src='assets/images/click-logo.webp'>
+                  </ng-container>
+                  <ng-container *ngSwitchCase='DonateEnum.UZUM'>
+                    <img alt='' src='assets/images/uzum-bank.webp'>
+                  </ng-container>
+                  <ng-container *ngSwitchCase='DonateEnum.PAYME'>
+                    <img alt='' src='assets/images/payme-logo.webp'>
+                  </ng-container>
+                  <ng-container *ngSwitchCase='DonateEnum.VISA'>
+                    <img alt='' src='assets/images/visa.webp'>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>{{ donate.system }}</ng-container>
+                </div>
+              </td>
+              <td>{{ donate.title }}</td>
+              <td>{{ donate.name }}</td>
+              <td>{{ donate.sign_time }}</td>
+              <td>{{ numberWithCommas(donate.amount) }} {{ donate.currency }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div *ngIf='donates.length === 0' class='content__padding'>
+        {{ "MESSAGE.EMPTY_LIST" | translate }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf='total > limit' class='content__block'>
+    <app-pagination
+      (changeLimit)='changeCount($event)'
+      (currentEvent)='changePage($event)'
+      [currentPage]='pagination.currentPage'
+      [limitCount]='pagination.posts_per_page'
+      [total]='pagination.total'
+    ></app-pagination>
+  </div>
+</ng-container>
+
+<jw-modal id='donateFilter'>
+  <app-filter></app-filter>
+</jw-modal>
+
+<jw-modal id='donateReport'>
+  <app-donate-report></app-donate-report>
+</jw-modal>

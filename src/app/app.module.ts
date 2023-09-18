@@ -19,6 +19,9 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -34,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule,
     HttpClientModule,
     CoreModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -75,9 +79,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {
-  constructor(private langService: LanguageService) {
+  constructor(private langService: LanguageService, localeService: BsLocaleService) {
     this.langService.installLangOnBoot();
   }
 }
