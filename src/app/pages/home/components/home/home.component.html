@@ -7,16 +7,16 @@
     <div class='home__text'>
       {{"AUTH.LOGIN.SUCCESS" | translate : { username: userName } }}</div>
     <nav class='home__menu'>
-      <ul>
+      <div class='row justify-content-center'>
         <ng-container *ngFor='let item of sidebarMenu'>
-          <li *ngIf='item.hidden'>
+          <div *ngIf='item.hidden' class='col-md-4'>
             <a routerLink='{{item.link}}' routerLinkActive='active'>
               <span *ngIf='item.icon' [innerHTML]='item.icon | sanitizer'></span>
               {{ item.title | translate }}
             </a>
-          </li>
+          </div>
         </ng-container>
-      </ul>
+      </div>
     </nav>
   </div>
 </div>

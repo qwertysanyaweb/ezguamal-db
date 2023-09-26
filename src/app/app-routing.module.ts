@@ -7,13 +7,14 @@ import { AuthGuard } from './core/guard/auth.guard';
 const routes: Routes = [
   {
     path: '',
+    loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '',
     component: ContentLayoutComponent,
     canActivate: [AuthGuard],
     children: [
-      {
-        path: '',
-        loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
-      },
       {
         path: 'charity',
         loadChildren: () => import('./pages/charity/charity.module').then((m) => m.CharityModule),

@@ -726,48 +726,36 @@ h3 {
     max-width: 800px;
     width: 100%;
 
-    ul {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      gap: 20px;
+    a {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      background: #fff;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.02);
+      border-radius: 20px;
+      font-size: 18px;
+      color: #000;
 
-      li {
-        flex-grow: 2;
-        flex-basis: 33%;
+      svg {
+        height: 60px;
+        max-height: 60px;
+        transition: all 0.4s ease;
+      }
 
-        a {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 150px;
-          background: #fff;
-          box-shadow: 0 0 25px rgba(0, 0, 0, 0.02);
-          border-radius: 20px;
-          font-size: 18px;
-          color: #000;
+      &:hover {
+        background: $color2;
+        color: #fff;
 
-          svg {
-            height: 60px;
-            max-height: 60px;
-            transition: all 0.4s ease;
-          }
-
-          &:hover {
-            background: $color2;
-            color: #fff;
-
-            svg {
-              fill: #fff;
-            }
-          }
+        svg {
+          fill: #fff;
         }
       }
     }
   }
 }
+
 
 /* СТРАНИЦА */
 
