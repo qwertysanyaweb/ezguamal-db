@@ -97,11 +97,7 @@ export class FilterComponent implements OnInit {
         this.filterDataTypesEnum.SELECT === filterData.data[prop].type ||
         this.filterDataTypesEnum.MULTI_SELECT === filterData.data[prop].type
       ) {
-        const collator = new Intl.Collator('ru');
-        const sort = filterData.data[prop].data.sort((a: any, b: any) =>
-          collator.compare(a.name, b.name),
-        );
-        formDataObj[prop] = new FormControl(sort);
+        formDataObj[prop] = new FormControl(filterData.data[prop].data);
       } else {
         formDataObj[prop] = new FormControl(filterData.data[prop].data);
       }

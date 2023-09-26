@@ -1,0 +1,65 @@
+<div class='donateModal'>
+  <form (submit)='submit()' [formGroup]='form'>
+    <div class='row'>
+      <div class='col-12 donateModal__title'>
+        <h3>{{ "BOXES.OPEN.TITLE" | translate }}</h3>
+        <div (click)='close()' class='filter__close'>
+          <svg data-name='Layer 1' height='512' id='Layer_1' viewBox='0 0 24 24' width='512'
+               xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='m15.854,8.854l-3.146,3.146,3.146,3.146c.195.195.195.512,0,.707-.098.098-.226.146-.354.146s-.256-.049-.354-.146l-3.146-3.146-3.146,3.146c-.098.098-.226.146-.354.146s-.256-.049-.354-.146c-.195-.195-.195-.512,0-.707l3.146-3.146-3.146-3.146c-.195-.195-.195-.512,0-.707s.512-.195.707,0l3.146,3.146,3.146-3.146c.195-.195.512-.195.707,0s.195.512,0,.707Zm8.146,3.146c0,6.617-5.383,12-12,12S0,18.617,0,12,5.383,0,12,0s12,5.383,12,12Zm-1,0c0-6.065-4.935-11-11-11S1,5.935,1,12s4.935,11,11,11,11-4.935,11-11Z' />
+          </svg>
+        </div>
+      </div>
+      <div class='col-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.REPORT.NUMBER.TITLE" | translate }} <span>*</span></span>
+          <input appDynamicValidatorMessage formControlName='boxNumber'
+                 placeholder='{{ "BOXES.REPORT.NUMBER.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.DATE.TITLE" | translate }} <span>*</span></span>
+          <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]='maxDate'
+                 appDynamicValidatorMessage
+                 bsDatepicker
+                 formControlName='date'
+                 placeholder='{{ "DONATE.REPORT.DATE_FROM.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-lg-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.SUM.TITLE" | translate }}</span>
+          <input appDynamicValidatorMessage formControlName='sum'
+                 placeholder='{{ "BOXES.OPEN.FORM.SUM.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-lg-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.DOLLAR.TITLE" | translate }}</span>
+          <input appDynamicValidatorMessage formControlName='dollar'
+                 placeholder='{{ "BOXES.OPEN.FORM.DOLLAR.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-lg-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.EURO.TITLE" | translate }}</span>
+          <input appDynamicValidatorMessage formControlName='euro'
+                 placeholder='{{ "BOXES.OPEN.FORM.EURO.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-lg-6'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.RUB.TITLE" | translate }}</span>
+          <input appDynamicValidatorMessage formControlName='rub'
+                 placeholder='{{ "BOXES.OPEN.FORM.RUB.PLACEHOLDER" | translate }}' type='text'>
+        </label>
+      </div>
+      <div class='col-12'>
+        <button [disabled]='form.invalid' [spinner]='sendForm' class='siteButton block'
+                type='submit'>{{ "BUTTON.ADD" | translate }}</button>
+      </div>
+    </div>
+  </form>
+</div>

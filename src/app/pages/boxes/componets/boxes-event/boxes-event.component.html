@@ -1,0 +1,171 @@
+<ng-container *ngIf='loadingData'>
+  <div class='loading__text'>
+    <div [spinner]='true'>
+      {{ "MESSAGE.LOAD" | translate }}
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf='!loadingData'>
+  <form (submit)='submit()' [formGroup]='form'>
+    <div class='content__block'>
+      <div class='filter__control'>
+        <div class='filter__control-left'>
+          <div class='content__title'>
+            <button (click)='back()' class='siteButton' type='button'>
+              <svg fill='#fff' height='20' viewBox='0 0 24 24'
+                   xmlns='http://www.w3.org/2000/svg'>
+                <path
+                  d='M13.68,22c-.34,0-.69-.07-1.03-.21-1.01-.42-1.65-1.36-1.65-2.45v-2.34H3.47c-1.92,0-3.47-1.57-3.47-3.51v-2.99c0-1.93,1.56-3.51,3.47-3.51h7.53s0-2.33,0-2.33c0-1.1,.64-2.04,1.65-2.45,1.01-.42,2.12-.19,2.9,.58l7.34,6.55c1.48,1.48,1.48,3.85,.02,5.31l-7.37,6.58c-.51,.51-1.17,.78-1.86,.78ZM3.47,7.99c-1.36,0-2.47,1.12-2.47,2.51v2.99c0,1.38,1.11,2.51,2.47,2.51H11.5c.28,0,.5,.22,.5,.5v2.84c0,.82,.54,1.32,1.03,1.53,.5,.2,1.23,.22,1.81-.36,0,0,.01-.01,.02-.02l7.36-6.57c1.05-1.05,1.05-2.79-.02-3.86L14.86,3.51c-.6-.6-1.33-.59-1.83-.38-.5,.2-1.03,.71-1.03,1.53v2.84c0,.13-.05,.26-.15,.35s-.22,.15-.35,.15H3.47Z'></path>
+              </svg>
+            </button>
+            <h1 *ngIf='event === eventType.add'>{{ "BOXES.ADD.TITLE" | translate }}</h1>
+            <h1 *ngIf='boxId'>{{ "BOXES.EDIT.TITLE" | translate  : {
+              boxNumber: form.get('box_number')?.value,
+              boxName: form.get('title')?.value
+            } }}</h1>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='content__block'>
+      <div class='content__bg content__padding'>
+        <div class='row'>
+          <div class='col-12'><h2>{{ "BOXES.ADD.INFO_TITLE_1" | translate }}</h2></div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.DATE.TITLE" | translate }} <span>*</span></span>
+              <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]='maxDate'
+                     appDynamicValidatorMessage bsDatepicker formControlName='date'
+                     placeholder='{{ "BOXES.ADD.FORM.DATE.PLACEHOLDER" | translate }}' type='text'>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.TITLE.TITLE" | translate }} <span>*</span></span>
+              <input appDynamicValidatorMessage formControlName='title'
+                     placeholder='{{ "BOXES.ADD.FORM.TITLE.PLACEHOLDER" | translate }}' type='text'>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.NUMBER.TITLE" | translate }} <span>*</span></span>
+              <input appDynamicValidatorMessage formControlName='box_number'
+                     placeholder='{{ "BOXES.ADD.FORM.NUMBER.PLACEHOLDER" | translate }}' type='text'>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <div class='row  align-items-end'>
+              <div class='col-8'>
+                <label class='formGroup'>
+                  <span class='formGroup__title'>{{ "BOXES.ADD.FORM.BRAND.TITLE" | translate }} <span>*</span></span>
+                  <span class='formGroup__load'>
+                  <span class='formGroup__load-full'>
+                    <ng-select
+                      [clearSearchOnAdd]='true'
+                      [clearable]='false'
+                      [closeOnSelect]='true'
+                      [items]='category.brand'
+                      appDynamicValidatorMessage
+                      bindLabel='name'
+                      bindValue='id'
+                      clearAllText='{{ "SELECT.CLEAR_TEXT" | translate }}'
+                      formControlName='brand'
+                      notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
+                      placeholder='{{ "BOXES.ADD.FORM.BRAND.PLACEHOLDER" | translate }}'
+                    >
+                    </ng-select>
+                  </span>
+                  <div *ngIf='loadCategory'>
+                    <div [spinner]='loadCategory'></div>
+                  </div>
+                </span>
+                </label>
+              </div>
+              <div class='col-4'>
+                <button (click)='openModal("addBrand")'
+                        class='siteButton block' type='button'>{{"BOXES.ADD.BRAND.BUTTON" | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='content__block'>
+      <div class='content__bg content__padding'>
+        <div class='row'>
+          <div class='col-12'><h2>{{ "BOXES.ADD.INFO_TITLE_2" | translate }}</h2></div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.REGION.TITLE" | translate }} <span>*</span></span>
+              <span class='formGroup__load'>
+              <span class='formGroup__load-full'>
+                <ng-select
+                  [clearSearchOnAdd]='true'
+                  [clearable]='false'
+                  [closeOnSelect]='false'
+                  [items]='category.region'
+                  [multiple]='true'
+                  appDynamicValidatorMessage
+                  bindLabel='name'
+                  bindValue='id'
+                  clearAllText='{{ "SELECT.CLEAR_TEXT" | translate }}'
+                  formControlName='region'
+                  notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
+                  placeholder='{{ "BOXES.ADD.FORM.REGION.PLACEHOLDER" | translate }}'
+                >
+                </ng-select>
+              </span>
+              <div *ngIf='loadCategory'>
+                <div [spinner]='loadCategory'></div>
+              </div>
+            </span>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.COORDINATES.TITLE" | translate }} <span>*</span></span>
+              <input appDynamicValidatorMessage
+                     formControlName='box_coordinates'
+                     placeholder='{{ "BOXES.ADD.FORM.COORDINATES.PLACEHOLDER" | translate }}'
+                     type='text'>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.ADDRESS.TITLE" | translate }} <span>*</span></span>
+              <input appDynamicValidatorMessage formControlName='box_address'
+                     placeholder='{{ "BOXES.ADD.FORM.ADDRESS.PLACEHOLDER" | translate }}' type='text'>
+            </label>
+          </div>
+          <div class='col-lg-6'>
+            <label class='formGroup'>
+              <span class='formGroup__title'>{{ "BOXES.ADD.FORM.PHONE.TITLE" | translate }} <span>*</span></span>
+              <input appDynamicValidatorMessage formControlName='box_phone'
+                     placeholder='{{ "BOXES.ADD.FORM.PHONE.PLACEHOLDER" | translate }}' type='text'>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='content__block'>
+      <div class='filter__control'>
+        <div class='filter__control-left'></div>
+        <div class='filter__control-right'>
+          <button *ngIf='event === eventType.add' [disabled]='form.invalid' [spinner]='sendForm'
+                  class='siteButton min padding' type='submit'>{{ "BUTTON.ADD" | translate }}</button>
+          <button *ngIf='boxId' [disabled]='form.invalid' [spinner]='sendForm'
+                  class='siteButton min padding' type='submit'>{{ "BUTTON.SAVE" | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <jw-modal id='addBrand'>
+    <app-boxes-add-brand></app-boxes-add-brand>
+  </jw-modal>
+</ng-container>

@@ -5,6 +5,12 @@ export interface Donate {
   system: string;
   sign_time: string;
   name: string;
+  image: string;
+}
+
+export interface DonateCategory {
+  id: number,
+  name: string
 }
 
 export interface DonateResponse {
@@ -33,11 +39,12 @@ export interface DonatePaginationParams {
 }
 
 export interface DonateReport {
-  system: string,
-  amount: number,
-  percent?: number,
-  result?: number
-  currency: string
+  system: string;
+  amount: number;
+  percent?: number;
+  result?: number;
+  currency: string;
+  image: string;
 }
 
 export interface DonateReportRequest {
@@ -45,4 +52,13 @@ export interface DonateReportRequest {
   id: string,
   dateFrom: string,
   dateTo: string
+}
+
+export interface DonateAddRequest {
+  system: string,
+  id: string,
+  currency: string,
+  date?: string,
+  name: string,
+  title: string,
 }

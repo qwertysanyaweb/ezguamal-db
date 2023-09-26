@@ -1,1 +1,22 @@
-Главная страница в разработке
+<div class='home'>
+  <div class='home__wrap'>
+    <div class='home__logo'>
+      <img alt='' src='assets/images/logo.svg'>
+      <span>{{ "SYSTEM.TITLE" | translate }}</span>
+    </div>
+    <div class='home__text'>
+      {{"AUTH.LOGIN.SUCCESS" | translate : { username: userName } }}</div>
+    <nav class='home__menu'>
+      <ul>
+        <ng-container *ngFor='let item of sidebarMenu'>
+          <li *ngIf='item.hidden'>
+            <a routerLink='{{item.link}}' routerLinkActive='active'>
+              <span *ngIf='item.icon' [innerHTML]='item.icon | sanitizer'></span>
+              {{ item.title | translate }}
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </nav>
+  </div>
+</div>

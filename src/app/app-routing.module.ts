@@ -22,6 +22,10 @@ const routes: Routes = [
         path: 'donate',
         loadChildren: () => import('./pages/donate/donate.module').then((m) => m.DonateModule),
       },
+      {
+        path: 'boxes',
+        loadChildren: () => import('./pages/boxes/boxes.module').then((m) => m.BoxesModule),
+      },
     ],
   },
   {

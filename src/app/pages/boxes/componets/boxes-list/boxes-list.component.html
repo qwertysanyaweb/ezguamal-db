@@ -1,0 +1,130 @@
+<ng-container *ngIf='loadingData'>
+  <div class='loading__text'>
+    <div [spinner]='true'>
+      {{ "MESSAGE.LOAD" | translate }}
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf='!loadingData'>
+  <div class='content__block'>
+    <div class='filter__control'>
+      <div class='filter__control-left'>
+        <select (change)='selectState($event)' [(ngModel)]='requestData.post_status' class='min green'>
+          <option *ngFor='let option of boxSortList' [value]='option.id'>{{ option.name | translate}}</option>
+        </select>
+        {{ "BOXES.COUNT_BOX" | translate }}: {{ pagination.total }}
+        <button *ngIf='rolesButton.add' [routerLink]='["./add"]'
+                class='siteButton min padding'>{{ "BOXES.ADD.BUTTON_ADD" | translate }}</button>
+        <button (click)='openModal("boxOpen")'
+                class='siteButton min blue padding'>{{ "BOXES.ADD_INFO_OPEN_BOX" | translate }}</button>
+      </div>
+      <div class='filter__control-right'>
+        <button (click)='openModal("boxesReports")' *ngIf='rolesButton.report'
+                class='siteButton min blue padding'>{{ "BUTTON.REPORT_GENERATE" | translate }}</button>
+        <button (click)='openModal("boxesFilter")'
+                class='siteButton min padding'>{{ "BUTTON.FILTER" | translate }}</button>
+      </div>
+    </div>
+  </div>
+  <div class='content__block'>
+    <div class='content__bg'>
+      <div *ngIf='boxes.length > 0'>
+        <div class='content__table'>
+          <table [spinner]='changeData' class='table'>
+            <tr>
+              <ng-container *ngFor='let th of table; let i = index'>
+                <ng-container *ngIf='requestData.post_status !== "publish" || th.value !== "box_dataClose"'>
+                  <th [ngClass]='th.sortable ? "table__th-sort" : ""'>
+                    <div (click)='boxesSort(th.value , th.sort , i)' *ngIf='th.sortable'>
+                      {{ th.name | translate }}
+                      <span *ngIf='th.showSort' [ngClass]="th.sort ? 'rotate' : ''">
+                      <img alt='' src='assets/images/angle-small-down.svg'>
+                    </span>
+                    </div>
+                    <ng-container *ngIf='!th.sortable'>{{ th.name | translate }}</ng-container>
+                  </th>
+                </ng-container>
+              </ng-container>
+              <th *ngIf='rolesButton.edit'></th>
+            </tr>
+            <ng-container *ngFor='let box of boxes | paginate
+                : {
+                    itemsPerPage: pagination.posts_per_page,
+                    currentPage: pagination.currentPage,
+                    totalItems: pagination.total
+                  }'>
+              <tr [ngClass]='box.post_status === "close" ? "table__tr-close" : ""'>
+                <td style='white-space: nowrap'>
+                  {{box.box_number}}
+                </td>
+                <td>
+                  {{ box.brand[0].name }}
+                </td>
+                <td>
+                  <ng-container *ngFor='let region of box.region; let i = index'>
+                    <ng-container *ngIf='i !== 0'>,</ng-container>
+                    {{ region.name }}
+                  </ng-container>
+                </td>
+                <td>
+                  {{box.box_address}}
+                </td>
+                <td style='width:185px;'>
+                  {{box.box_phone}}
+                </td>
+                <td>
+                  {{box.box_dataCreate}}
+                </td>
+                <td *ngIf='requestData.post_status != "publish"'>
+                  {{box.box_dataClose}}
+                </td>
+                <td *ngIf='rolesButton.edit' style='padding:5px;'>
+                  <div class='contextmenu'>
+                    <img alt='' src='assets/images/contextmenu.svg' />
+                    <ul>
+                      <li><a [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
+                      <li><a [routerLink]='["./edit" , box.id]'>{{ "BUTTON.EDIT" | translate }}</a></li>
+                      <li *ngIf='box.post_status === "close"' class='delete'><a
+                        (click)='changeState(box.id ,"publish")'>{{ "BUTTON.OPEN" | translate }} <span
+                        *ngIf='changeStateLoad'>
+                        <span [spinner]='true'></span>
+                      </span></a></li>
+                      <li *ngIf='box.post_status !== "close"' class='delete'><a
+                        (click)='changeState(box.id ,"close")'>{{ "BUTTON.CLOSE" | translate }} <span
+                        *ngIf='changeStateLoad'> <span [spinner]='true'></span></span></a></li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+          </table>
+        </div>
+      </div>
+      <div *ngIf='boxes.length === 0' class='content__padding'>
+        {{ "MESSAGE.EMPTY_LIST" | translate }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf='total > limit' class='content__block'>
+    <app-pagination
+      (changeLimit)='changeCount($event)'
+      (currentEvent)='changePage($event)'
+      [currentPage]='pagination.currentPage'
+      [limitCount]='pagination.posts_per_page'
+      [total]='pagination.total'
+    ></app-pagination>
+  </div>
+</ng-container>
+
+<jw-modal id='boxOpen'>
+  <app-boxes-open></app-boxes-open>
+</jw-modal>
+
+<jw-modal id='boxesFilter'>
+  <app-filter></app-filter>
+</jw-modal>
+
+<jw-modal id='boxesReports'>
+  <app-boxes-report></app-boxes-report>
+</jw-modal>

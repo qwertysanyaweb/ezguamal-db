@@ -1,29 +1,28 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { switchMap, takeUntil } from 'rxjs/operators';
-
-import { DonateEnum } from '../../enum/donate.enum';
-import { Donate, DonatePaginationParams, RequestDonate } from '../../interfaces/donate';
+import { switchMap } from 'rxjs/operators';
+import { Donate, DonateCategory, DonatePaginationParams, RequestDonate } from '../../interfaces/donate';
 import { DonateStateService } from '../../services/donate-state.service';
 import { DonateService } from '../../services/donate.service';
-import { DestroyService } from '../../../../core/services/destroy.service';
 import { ModalService } from '../../../../core/services/modal.service';
 import { FilterSettings } from '../../../../features/filter/interfaces/filter-settings';
 import { FilterDataTypesEnum } from '../../../../features/filter/enums/filter-data-types.enum';
 import { FilterStateService } from '../../../../features/filter/states/filter-state.service';
 import { DatetimeService } from '../../../../core/services/datetime.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-donate-list',
   templateUrl: './donate-list.component.html',
   styleUrls: ['./donate-list.component.scss'],
-  providers: [DestroyService, ModalService],
+  providers: [ModalService],
 })
 export class DonateListComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription = new Subscription();
 
   donates: Donate[] = [];
 
-  DonateEnum = DonateEnum;
+  donateCategory: DonateCategory[] = [];
 
   requestData: RequestDonate = {};
 
@@ -98,12 +97,7 @@ export class DonateListComponent implements OnInit, OnDestroy {
         type: this.filterDataTypesEnum.MULTI_SELECT,
         title: this.translateService.instant('DONATE.FILTER.SYSTEM.TITLE'),
         placeholder: this.translateService.instant('DONATE.FILTER.SYSTEM.PLACEHOLDER'),
-        data: [
-          { id: DonateEnum.CLICK, name: DonateEnum.CLICK },
-          { id: DonateEnum.PAYME, name: DonateEnum.PAYME },
-          { id: DonateEnum.UZUM, name: DonateEnum.UZUM },
-          { id: DonateEnum.VISA, name: DonateEnum.VISA },
-        ],
+        data: [],
       },
       filter_startData: {
         col: 2,
@@ -130,10 +124,9 @@ export class DonateListComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    @Inject(DestroyService) private readonly destroy$: DestroyService,
     private readonly donateService: DonateService,
     private readonly donateStateService: DonateStateService,
-    protected modalService: ModalService,
+    protected readonly modalService: ModalService,
     private readonly translateService: TranslateService,
     private readonly filterStateService: FilterStateService,
     private readonly dataTimeService: DatetimeService,
@@ -141,35 +134,47 @@ export class DonateListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setupFilters();
     this.getRequestParams();
     this.getPaginationParams();
     this.getFilterParams();
   }
 
   getRequestParams() {
-    this.donateStateService.requestParams$.pipe(
-      takeUntil(this.destroy$),
-      switchMap((requestParams) => {
-        this.changeData = true;
-        this.requestData = requestParams;
-        return this.donateService.getList(this.requestData);
+    this.subscriptions.add(
+      this.donateStateService.changeList$.pipe(
+        switchMap(() => {
+          return this.donateStateService.requestParams$;
+        }),
+        switchMap((requestParams) => {
+          this.changeData = true;
+          this.requestData = requestParams;
+          return this.donateService.getList(this.requestData);
+        }),
+      ).subscribe((response) => {
+        this.changeData = false;
+        this.loadingData = false;
+        this.total = response.total;
+        this.donates = response.post;
+        this.pagination.total = response.total;
       }),
-    ).subscribe((response) => {
-      this.changeData = false;
-      this.loadingData = false;
-      this.total = response.total;
-      this.donates = response.post;
-      this.pagination.total = response.total;
-    });
+    );
   }
 
   getFilterParams() {
-    this.filterStateService.filterSaveData$.pipe((takeUntil(this.destroy$))).subscribe((response) => {
-      if (Object.keys(response).length > 0) {
-        this.filterCombineData(response);
-      }
-    });
+    this.subscriptions.add(
+      this.donateStateService.donateCategory$.pipe(
+        switchMap((response) => {
+          this.donateCategory = response;
+          this.filterSettings.data.filter_system.data = response;
+          this.filterStateService.setFilterSettings({ ...this.filterSettings });
+          return this.filterStateService.filterSaveData$;
+        }),
+      ).subscribe((response) => {
+        if (Object.keys(response).length > 0) {
+          this.filterCombineData(response);
+        }
+      }),
+    );
   }
 
   filterCombineData(confirm: RequestDonate) {
@@ -187,16 +192,14 @@ export class DonateListComponent implements OnInit, OnDestroy {
   }
 
   getPaginationParams() {
-    this.donateStateService.paginationParams$.pipe(takeUntil(this.destroy$)).subscribe((paginationParams) => {
-      if (JSON.stringify(this.pagination) !== JSON.stringify(paginationParams)) {
-        this.pagination = paginationParams;
-        this.donateStateService.setRequestParams({ ...this.requestData, ...paginationParams });
-      }
-    });
-  }
-
-  setupFilters(): void {
-    this.filterStateService.setFilterSettings({ ...this.filterSettings });
+    this.subscriptions.add(
+      this.donateStateService.paginationParams$.subscribe((paginationParams) => {
+        if (JSON.stringify(this.pagination) !== JSON.stringify(paginationParams)) {
+          this.pagination = paginationParams;
+          this.donateStateService.setRequestParams({ ...this.requestData, ...paginationParams });
+        }
+      }),
+    );
   }
 
   donateSort(type: string, order: boolean, index: number) {
@@ -243,6 +246,7 @@ export class DonateListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscriptions.unsubscribe();
     this.filterStateService.resetFilterState();
     this.donateStateService.resetRequestParams();
     this.donateStateService.resetPaginationParams();

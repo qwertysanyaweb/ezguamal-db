@@ -7,6 +7,9 @@ import { ModalComponent } from '../../features/modal/modal.component';
 import { FilterModule } from '../../features/filter/filter.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DonateReportComponent } from './components/donate-report/donate-report.component';
+import { DonateAddComponent } from './components/donate-add/donate-add.component';
+import { DonateComponent } from './components/donate/donate.component';
+import { DestroyService } from '../../core/services/destroy.service';
 
 
 @NgModule({
@@ -14,9 +17,17 @@ import { DonateReportComponent } from './components/donate-report/donate-report.
     DonateListComponent,
     ModalComponent,
     DonateReportComponent,
+    DonateAddComponent,
+    DonateComponent,
   ],
   imports: [
     DonateRoutingModule, SharedModule, CoreModule, FilterModule, NgxPaginationModule,
+  ],
+  exports: [
+    ModalComponent,
+  ],
+  providers: [
+    DestroyService,
   ],
 })
 export class DonateModule {

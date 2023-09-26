@@ -4,7 +4,7 @@ export interface User {
   'user_email': string,
   'display_name': string,
   'roles_name': string,
-  'roles': any[]
+  'roles': any
 }
 
 export interface UserAuthorization {

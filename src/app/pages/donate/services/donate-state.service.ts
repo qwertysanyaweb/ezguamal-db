@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { DonatePaginationParams, RequestDonate } from '../interfaces/donate';
+import { DonateCategory, DonatePaginationParams, RequestDonate } from '../interfaces/donate';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -22,6 +22,10 @@ export class DonateStateService {
     total: 0,
   };
 
+  changeList: boolean = false;
+
+  donateCategory: DonateCategory[] = [];
+
   private _paginationParamsSubject = new BehaviorSubject(this.paginationParams);
 
   public paginationParams$ = this._paginationParamsSubject.asObservable();
@@ -30,12 +34,28 @@ export class DonateStateService {
 
   public requestParams$ = this._requestParamsSubject.asObservable();
 
+  private _changeList = new BehaviorSubject(this.changeList);
+
+  public changeList$ = this._changeList.asObservable();
+
+  private _donateCategory = new BehaviorSubject(this.donateCategory);
+
+  public donateCategory$ = this._donateCategory.asObservable();
+
   public setRequestParams(requestParams: RequestDonate) {
     this._requestParamsSubject.next(requestParams);
   }
 
   public setPaginationParams(paginationParams: DonatePaginationParams) {
     this._paginationParamsSubject.next(paginationParams);
+  }
+
+  public setChangeList(value: boolean) {
+    this._changeList.next(value);
+  }
+
+  public setDonateCategory(category: DonateCategory[]) {
+    this._donateCategory.next(category);
   }
 
   public resetRequestParams(): void {

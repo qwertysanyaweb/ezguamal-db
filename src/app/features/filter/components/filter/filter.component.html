@@ -1,9 +1,11 @@
-<form [formGroup]='form'>
-  <div class='filter'>
-    <ng-container *ngIf='loading'>
+<div class='filter'>
+  <ng-container *ngIf='loading'>
+    <div>
       <div [spinner]='loading'>{{ "FILTER.LOAD" | translate }}</div>
-    </ng-container>
-    <ng-container *ngIf='!loading'>
+    </div>
+  </ng-container>
+  <ng-container *ngIf='!loading'>
+    <form [formGroup]='form'>
       <div class='row'>
         <div class='col-lg-12 filter__title-wrap'>
           <div class='filter__title'>{{ "FILTER.TITLE" | translate }}</div>
@@ -70,6 +72,6 @@
           <button (click)='applyFilter()' class='siteButton padding min'>{{ "BUTTON.APPLY" | translate }}</button>
         </div>
       </div>
-    </ng-container>
-  </div>
-</form>
+    </form>
+  </ng-container>
+</div>

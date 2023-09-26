@@ -1,6 +1,5 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LANGUAGE } from '../../core/constants';
-import { DestroyService } from '../../core/services/destroy.service';
 import { LanguageService } from '../../core/services/language.service';
 import { CoreUsersService } from '../../core/services/core-users.service';
 import { MENU_SIDEBAR } from '../../core/constants/menu.constants';
@@ -11,7 +10,6 @@ import { Subscription } from 'rxjs';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  providers: [DestroyService],
 })
 export class SidebarComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
@@ -27,7 +25,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   sidebarMenu: Menu[] = [];
 
   constructor(
-    @Inject(DestroyService) private readonly destroy$: DestroyService,
     private readonly languageService: LanguageService,
     private readonly coreUsersService: CoreUsersService,
   ) {

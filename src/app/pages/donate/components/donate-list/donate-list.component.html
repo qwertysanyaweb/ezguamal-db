@@ -11,6 +11,8 @@
     <div class='filter__control'>
       <div class='filter__control-left'>
         {{ "PAGINATION.COUNT_POST" | translate }}: {{ pagination.total }}
+        <button (click)='openModal("donateAdd")' class='siteButton min padding'
+                type='button'>{{ "BUTTON.ADD" | translate }}</button>
       </div>
       <div class='filter__control-right'>
         <button (click)='openModal("donateReport")' class='siteButton min padding blue'
@@ -44,20 +46,8 @@
                     totalItems: pagination.total
                   }'>
               <td style='padding:5px; font-size:0; line-height: 0;'>
-                <div [ngSwitch]='donate.system' class='table__pay-system'>
-                  <ng-container *ngSwitchCase='DonateEnum.CLICK'>
-                    <img alt='' src='assets/images/click-logo.webp'>
-                  </ng-container>
-                  <ng-container *ngSwitchCase='DonateEnum.UZUM'>
-                    <img alt='' src='assets/images/uzum-bank.webp'>
-                  </ng-container>
-                  <ng-container *ngSwitchCase='DonateEnum.PAYME'>
-                    <img alt='' src='assets/images/payme-logo.webp'>
-                  </ng-container>
-                  <ng-container *ngSwitchCase='DonateEnum.VISA'>
-                    <img alt='' src='assets/images/visa.webp'>
-                  </ng-container>
-                  <ng-container *ngSwitchDefault>{{ donate.system }}</ng-container>
+                <div class='table__pay-system'>
+                  <img alt='' src='{{ donate.image }}'>
                 </div>
               </td>
               <td>{{ donate.title }}</td>
@@ -90,4 +80,8 @@
 
 <jw-modal id='donateReport'>
   <app-donate-report></app-donate-report>
+</jw-modal>
+
+<jw-modal id='donateAdd'>
+  <app-donate-add></app-donate-add>
 </jw-modal>
