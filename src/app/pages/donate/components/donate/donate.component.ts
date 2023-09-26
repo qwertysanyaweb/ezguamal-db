@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DonateService } from '../../services/donate.service';
 import { DonateStateService } from '../../services/donate-state.service';
 import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-donate',
@@ -23,7 +24,11 @@ export class DonateComponent implements OnInit, OnDestroy {
 
   getCategory() {
     this.subscriptions.add(
-      this.donateService.getCategory().subscribe((response) => {
+      this.donateStateService.changeList$.pipe(
+        switchMap(() => {
+          return this.donateService.getCategory();
+        }),
+      ).subscribe((response) => {
         this.donateStateService.setDonateCategory(response);
       }),
     );

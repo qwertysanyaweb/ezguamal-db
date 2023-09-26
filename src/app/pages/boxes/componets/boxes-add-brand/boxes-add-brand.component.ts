@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../../../../core/services/modal.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BoxesService } from '../../services/boxes.service';
@@ -6,14 +6,13 @@ import { NotifierService } from 'angular-notifier';
 import { TranslateService } from '@ngx-translate/core';
 import { BoxesStateService } from '../../services/boxes-state.service';
 import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-boxes-add-brand',
   templateUrl: './boxes-add-brand.component.html',
   styleUrls: ['./boxes-add-brand.component.scss'],
 })
-export class BoxesAddBrandComponent implements OnInit {
+export class BoxesAddBrandComponent {
   subscriptions: Subscription = new Subscription();
 
   form: FormGroup = this.fb.group({
@@ -30,18 +29,6 @@ export class BoxesAddBrandComponent implements OnInit {
     private readonly translateService: TranslateService,
     private readonly boxesStateService: BoxesStateService,
   ) {
-  }
-
-  ngOnInit() {
-    this.subscriptions.add(
-      this.boxesStateService.changeCategory$.pipe(
-        switchMap((response) => {
-          return this.boxesService.getCategory();
-        }),
-      ).subscribe((response) => {
-        this.boxesStateService.setCategory(response);
-      }),
-    );
   }
 
   close(): void {

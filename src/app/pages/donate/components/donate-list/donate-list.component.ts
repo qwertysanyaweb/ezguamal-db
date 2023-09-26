@@ -141,10 +141,7 @@ export class DonateListComponent implements OnInit, OnDestroy {
 
   getRequestParams() {
     this.subscriptions.add(
-      this.donateStateService.changeList$.pipe(
-        switchMap(() => {
-          return this.donateStateService.requestParams$;
-        }),
+      this.donateStateService.requestParams$.pipe(
         switchMap((requestParams) => {
           this.changeData = true;
           this.requestData = requestParams;

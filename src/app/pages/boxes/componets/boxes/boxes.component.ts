@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BoxesStateService } from '../../services/boxes-state.service';
 import { BoxesService } from '../../services/boxes.service';
 import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-boxes',
@@ -23,7 +24,11 @@ export class BoxesComponent implements OnDestroy, OnInit {
 
   getCategory() {
     this.subscriptions.add(
-      this.boxesService.getCategory().subscribe((response) => {
+      this.boxesStateService.changeCategory$.pipe(
+        switchMap(() => {
+          return this.boxesService.getCategory();
+        }),
+      ).subscribe((response) => {
         this.boxesStateService.setCategory(response);
       }),
     );
@@ -34,5 +39,4 @@ export class BoxesComponent implements OnDestroy, OnInit {
     this.boxesStateService.resetRequestParams();
     this.boxesStateService.resetPaginationParams();
   }
-
 }
