@@ -21,10 +21,13 @@ export class BoxesReportComponent implements OnInit, OnDestroy {
 
   brand: BoxesCategory[] = [];
 
+  group: BoxesCategory[] = [];
+
   form: FormGroup = this.fb.group({
     objectReport: [null, [Validators.required]],
     boxNumber: [null, noSpaceValidators('brand')],
     brand: [null],
+    group: [null],
     dateFrom: [null, Validators.required],
     dateTo: [null, Validators.required],
   });
@@ -33,6 +36,7 @@ export class BoxesReportComponent implements OnInit, OnDestroy {
     { id: BoxesEnum.ALL, name: { ru: 'Все боксы', en: 'All boxes', uz: 'Barcha qutilar' } },
     { id: BoxesEnum.BOX_NUMBER, name: { ru: 'Номер бокса', en: 'Box number', uz: 'Quti raqami' } },
     { id: BoxesEnum.BRAND, name: { ru: 'Бренд', en: 'Brand', uz: 'Brend' } },
+    { id: BoxesEnum.GROUP, name: { ru: 'Группа', en: 'Group', uz: 'Guruh' } },
   ];
 
   lang: string = this.languageServices.getLang();
@@ -73,29 +77,39 @@ export class BoxesReportComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.boxesStateService.category$.subscribe((response) => {
         this.brand = response.brand;
+        this.group = response.group;
       }),
     );
   }
 
   changeObject($event: any) {
+    this.form.get('boxNumber')?.setValue(null);
+    this.form.get('brand')?.setValue(null);
+    this.form.get('group')?.setValue(null);
+
     if ($event.id === 0) {
       this.form.get('boxNumber')?.removeValidators(Validators.required);
       this.form.get('brand')?.removeValidators(Validators.required);
-      this.form.get('boxNumber')?.setValue('');
-      this.form.get('brand')?.setValue('');
+      this.form.get('group')?.removeValidators(Validators.required);
     }
     if ($event.id === 1) {
       this.form.get('boxNumber')?.addValidators(Validators.required);
       this.form.get('brand')?.removeValidators(Validators.required);
-      this.form.get('brand')?.setValue('');
+      this.form.get('group')?.removeValidators(Validators.required);
     }
     if ($event.id === 2) {
       this.form.get('boxNumber')?.removeValidators(Validators.required);
+      this.form.get('group')?.removeValidators(Validators.required);
       this.form.get('brand')?.addValidators(Validators.required);
-      this.form.get('boxNumber')?.setValue('');
+    }
+    if ($event.id === 3) {
+      this.form.get('boxNumber')?.removeValidators(Validators.required);
+      this.form.get('brand')?.removeValidators(Validators.required);
+      this.form.get('group')?.addValidators(Validators.required);
     }
     this.form.get('boxNumber')?.updateValueAndValidity();
     this.form.get('brand')?.updateValueAndValidity();
+    this.form.get('group')?.updateValueAndValidity();
   }
 
   submit() {

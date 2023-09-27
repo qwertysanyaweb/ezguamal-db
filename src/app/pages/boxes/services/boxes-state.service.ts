@@ -27,6 +27,7 @@ export class BoxesStateService {
   boxesCategory: BoxesCategoryResponse = {
     brand: [],
     region: [],
+    group: [],
   };
 
   private _paginationParamsSubject = new BehaviorSubject(this.paginationParams);

@@ -30,6 +30,7 @@ export class BoxesViewComponent implements OnInit, OnDestroy {
     box_open: [],
     title: '',
     box_coordinates: '',
+    group: [],
   };
 
   box_coordinates: number[] = [];

@@ -56,6 +56,26 @@
           </ng-select>
         </label>
       </div>
+      <div *ngIf='form.get("objectReport")?.value === 3' class='col-12'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.REPORT.BRAND.TITLE" | translate }} <span>*</span></span>
+          <ng-select
+            [clearSearchOnAdd]='true'
+            [clearable]='false'
+            [closeOnSelect]='false'
+            [items]='group'
+            [multiple]='true'
+            appDynamicValidatorMessage
+            bindLabel='name'
+            bindValue='id'
+            clearAllText='{{ "SELECT.CLEAR_TEXT" | translate }}'
+            formControlName='group'
+            notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
+            placeholder='{{ "BOXES.REPORT.BRAND.PLACEHOLDER" | translate }}'
+          >
+          </ng-select>
+        </label>
+      </div>
       <div class='col-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "DONATE.REPORT.DATE_FROM.TITLE" | translate }} <span>*</span></span>

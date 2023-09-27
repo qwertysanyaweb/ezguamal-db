@@ -186,6 +186,10 @@
           "TITLE": "Бренд",
           "PLACEHOLDER": "Выберите бренд"
         },
+        "GROUP": {
+          "TITLE": "Группа",
+          "PLACEHOLDER": "Выберите группу"
+        },
         "REGION": {
           "TITLE": "Регион",
           "PLACEHOLDER": "Выберите регион"

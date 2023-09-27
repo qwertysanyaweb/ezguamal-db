@@ -11,6 +11,7 @@ export interface Box {
   box_open: BoxOpenList[];
   title: string;
   box_coordinates: string;
+  group: { name: string, id: number }[];
 }
 
 export interface BoxOpenList {
@@ -55,6 +56,7 @@ export interface BoxesCategory {
 export interface BoxesCategoryResponse {
   brand: BoxesCategory[],
   region: BoxesCategory[],
+  group: BoxesCategory[]
 }
 
 export interface RequestReport {
@@ -62,7 +64,8 @@ export interface RequestReport {
   dateTo: string,
   objectReport: number,
   boxNumber: null | string,
-  brand: null | number[]
+  brand: null | number[],
+  group: null | number[],
 }
 
 export interface ResponseReport {
@@ -82,6 +85,7 @@ export interface RequestAddBox {
   phone: string,
   address: string,
   id?: number
+  group: number
 }
 
 export interface RequestOpenBox {

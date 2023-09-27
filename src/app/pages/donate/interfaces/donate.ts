@@ -41,7 +41,7 @@ export interface DonatePaginationParams {
 export interface DonateReport {
   system: string;
   amount: number;
-  percent?: number;
+  percent: number;
   result?: number;
   currency: string;
   image: string;

@@ -86,9 +86,7 @@
               </div>
             </td>
             <td>{{ numberWithCommas(item.amount) }} {{ item.currency }}</td>
-            <td>
-              <input (keyup)='changePercent($event , i)' *ngIf='item.amount > 0' type='number'>
-            </td>
+            <td>{{ item.percent }}</td>
             <td>{{ numberWithCommas(item.result) }} {{ item.currency }}</td>
           </tr>
         </table>

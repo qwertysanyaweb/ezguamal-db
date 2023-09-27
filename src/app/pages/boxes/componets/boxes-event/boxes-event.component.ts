@@ -39,11 +39,28 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
     edit: 'edit',
   };
 
+  dataBox: Box = {
+    id: 0,
+    box_number: '',
+    box_address: '',
+    box_phone: '',
+    box_dataCreate: '',
+    box_dataClose: '',
+    region: [],
+    brand: [],
+    post_status: '',
+    box_open: [],
+    title: '',
+    box_coordinates: '',
+    group: [],
+  };
+
   sendForm: boolean = false;
 
   category: BoxesCategoryResponse = {
     brand: [],
     region: [],
+    group: [],
   };
 
   form: FormGroup = this.fb.group({
@@ -51,6 +68,7 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
     title: [null, Validators.required],
     box_number: [null, [Validators.required, noSpaceValidators('brand')]],
     brand: [null, Validators.required],
+    group: [null, Validators.required],
     region: [null, Validators.required],
     box_coordinates: [null, Validators.required],
     box_phone: [null, Validators.required],
@@ -60,6 +78,8 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
   loadCategory: boolean = false;
 
   maxDate = new Date();
+
+  changeStateLoad: boolean = false;
 
   constructor(
     private currentRoute: ActivatedRoute,
@@ -100,6 +120,7 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
   getBox() {
     this.boxesService.getList({ p: this.boxId }).subscribe((response) => {
       this.loadingData = false;
+      this.dataBox = response.post[0];
       this.setForm(response.post[0]);
     }, (err) => {
       this.router.navigate(['/boxes']);
@@ -112,6 +133,7 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
     const title = this.form.get('title');
     const box_number = this.form.get('box_number');
     const brand = this.form.get('brand');
+    const group = this.form.get('group');
     const region = this.form.get('region');
     const coordinates = this.form.get('box_coordinates');
     const phone = this.form.get('box_phone');
@@ -127,6 +149,9 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
 
     brand?.patchValue(data.brand[0].id);
     brand?.disable();
+
+    group?.patchValue(data.group[0].id);
+    group?.disable();
 
     region?.patchValue(data.region.map(region => region.id));
 
@@ -177,6 +202,24 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
       }, (err) => {
         this.notifierService.notify('error', this.translateService.instant('ERROR.' + err.error.code));
         this.sendForm = false;
+      }),
+    );
+  }
+
+  changeState(id: number, state: string) {
+    this.changeStateLoad = true;
+    this.subscriptions.add(
+      this.boxesService.changeState({ id, state }).subscribe((response) => {
+        this.changeStateLoad = false;
+        if (response) {
+          this.getBox();
+          this.notifierService.notify('success', this.translateService.instant('BOXES.SUCCESS.CHANGE_STATE'));
+        } else {
+          this.notifierService.notify('error', this.translateService.instant('BOXES.ERROR.CHANGE_STATE'));
+        }
+      }, (err) => {
+        this.changeStateLoad = false;
+        this.notifierService.notify('error', this.translateService.instant('ERROR.' + err.error.code));
       }),
     );
   }

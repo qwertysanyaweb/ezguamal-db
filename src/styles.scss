@@ -332,6 +332,19 @@ h3 {
     }
   }
 
+  &.red {
+    background: linear-gradient(180deg, #f00 0%, darken(#f00, 10%) 100%);
+
+    &:hover {
+      background: darken(#f00, 5%);
+    }
+
+    &:active {
+      background: darken(#f00, 5%);
+      box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.1);
+    }
+  }
+
   &:disabled {
     background: #ccc;
 
@@ -690,7 +703,8 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 40px);
+  min-height: 100vh;
+  padding: 20px;
 
   &__wrap {
     width: 100%;

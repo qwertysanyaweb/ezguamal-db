@@ -78,13 +78,17 @@ export class DonateReportComponent implements OnInit {
     this.subscriptions.add(
       this.donateService.reports(data).subscribe((response) => {
         this.result = response;
+        this.result.forEach((item, index) => {
+          this.changePercent(item.percent, index);
+        });
         this.sendForm = false;
       }),
     );
   }
 
   changePercent(value: any, i: number) {
-    this.result[i].result = this.result[i].amount - (this.result[i].amount / 100 * value.target.value);
+    console.log(value);
+    this.result[i].result = this.result[i].amount - (this.result[i].amount / 100 * value);
   }
 
   numberWithCommas(amount: number | undefined) {
