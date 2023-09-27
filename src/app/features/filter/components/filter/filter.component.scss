@@ -9,10 +9,6 @@
   border-radius: 10px 0 0 10px;
 }
 
-nb-icon {
-  font-size: 1.1rem;
-}
-
 .filter-form-modal {
   padding: 25px 22px;
   font-family: 'Roboto', sans-serif;
@@ -23,19 +19,17 @@ nb-icon {
     margin-bottom: 30px;
     position: relative;
   }
+
   &__close {
     cursor: pointer;
     margin-left: auto;
-    nb-icon{
-      width:24px;
-      height:24px;
-      color:#A3A3A3;
-    }
   }
+
   &__body {
     display: flex;
     flex-wrap: wrap;
   }
+
   &__title {
     font-style: normal;
     font-weight: 500;
@@ -45,6 +39,7 @@ nb-icon {
     align-items: center;
     color: #3C3C3C;
   }
+
   &__save {
     font-style: normal;
     font-weight: 500;
@@ -57,150 +52,58 @@ nb-icon {
     margin-left: auto;
     margin-right: 15px;
   }
+
   &__field {
     margin-bottom: 25px;
     width: 100%;
     padding-left: 4px;
     padding-right: 4px;
+
     &--1 {
       width: 100%;
     }
+
     &--2 {
       width: 50%;
     }
+
     &--3 {
       width: 33.333%;
     }
+
     &--auto {
       width: auto;
     }
   }
-  &__title-field {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 140%;
-    color: #595959;
-    margin-bottom: 8px;
-  }
-  &__footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-  &__button {
-    margin-right: 12px;
-    border-radius: 4px;
-    padding: 8px 16px 8px 14px;
-    border: 0;
-    outline: 0;
-    cursor: pointer;
-    color: #595959;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    &:last-child {
-      margin-right: 0;
-    }
-    &--apply {
-      color: #fff;
-      background: linear-gradient(180deg, #0C6154 0%, #0E8B58 100%);
-      &:hover {
-        background: #0C6154;
-      }
-    }
-    &--reset {
-      background: #F1F1F1;
-      &:hover {
-        background: lighten(#F1F1F1, 1%);
-      }
-    }
-  }
+
   &__row {
     display: flex;
     flex-wrap: wrap;
     margin-left: -4px;
     margin-right: -4px;
   }
+
   &__col {
     width: 100%;
     padding-left: 4px;
     padding-right: 4px;
+
     &--1 {
       width: 100%;
     }
+
     &--2 {
       width: 50%;
     }
+
     &--calendar {
       nb-form-field {
         position: relative;
       }
     }
   }
-  &__icon {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 0;
-    line-height: 0;
-    background-size: contain;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-    pointer-events: none;
-    &--calendar {
-      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z' stroke='%23B9B9B9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 2V6' stroke='%23B9B9B9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M8 2V6' stroke='%23B9B9B9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M3 10H21' stroke='%23B9B9B9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
 
-    }
-  }
-  &__input {
-    background: #fff !important;
-    font-size: 14px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-    font-family: 'Roboto', sans-serif !important;
-    border: 1px solid #F1F1F1 !important;
-    color: #595959 !important;
-    &--calendar {
-      padding-right: 40px !important;
-    }
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-      color: #B9B9B9 !important;
-      font-family: 'Roboto', sans-serif !important;
-      font-size: 14px !important;
-    }
-    &::-moz-placeholder { /* Firefox 19+ */
-      color: #B9B9B9 !important;
-      font-family: 'Roboto', sans-serif !important;
-      font-size: 14px !important;
-    }
-    &:-ms-input-placeholder { /* IE 10+ */
-      color: #B9B9B9 !important;
-      font-family: 'Roboto', sans-serif !important;
-      font-size: 14px !important;
-    }
-    &:-moz-placeholder { /* Firefox 18- */
-      color: #B9B9B9 !important;
-      font-family: 'Roboto', sans-serif !important;
-      font-size: 14px !important;
-    }
-    &--calendar {
-      background-color: #fff;
-    }
-  }
   &__radio-group {
     display: flex;
   }
-}
-
-::ng-deep .nb-theme-default nb-radio span.text {
-  font-weight: 400 !important;
-  font-family: 'Roboto' !important;
-  font-style: normal !important;
-  font-weight: 400 !important;
-  font-size: 14px !important;
-  line-height: 125% !important;
-  color: #595959 !important;
 }
