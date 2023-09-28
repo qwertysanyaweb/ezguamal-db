@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build",
+    "build": "ng build && \"./node_modules/ngwp-theme-kit/bin/NgWP.ThemeBuilder.exe\" dist/ezguamal-db themeconfig.json",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -28,6 +28,7 @@
     "angular-notifier": "^10.0.0",
     "angular8-yandex-maps": "^12.0.0",
     "moment-range": "^3.1.0",
+    "ngwp-theme-kit": "^0.0.17",
     "ngx-bootstrap": "^7.0.0",
     "ngx-pagination": "^6.0.2",
     "rxjs": "~6.6.0",

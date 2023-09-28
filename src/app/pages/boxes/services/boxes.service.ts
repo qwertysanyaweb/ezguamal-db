@@ -22,34 +22,34 @@ export class BoxesService {
   }
 
   getList(params: RequestBoxes): Observable<BoxesResponse> {
-    return this.apiCoreService.get('/boxes/getBoxes', params);
+    return this.apiCoreService.get('boxes/getBoxes', params);
   }
 
   changeState(param: { id: number; state: string }): Observable<boolean> {
-    return this.apiCoreService.post('/boxes/changeState', param);
+    return this.apiCoreService.post('boxes/changeState', param);
   }
 
   getCategory(): Observable<BoxesCategoryResponse> {
-    return this.apiCoreService.get('/boxes/category', '');
+    return this.apiCoreService.get('boxes/category', '');
   }
 
   addBrand(brandName: string): Observable<boolean> {
-    return this.apiCoreService.post('/boxes/addBrand', { brandName });
+    return this.apiCoreService.post('boxes/addBrand', { brandName });
   }
 
   reports(params: RequestReport): Observable<ResponseReport> {
-    return this.apiCoreService.post('/boxes/reports', params);
+    return this.apiCoreService.post('boxes/reports', params);
   }
 
   addBox(params: RequestAddBox): Observable<boolean> {
-    return this.apiCoreService.post('/boxes/addBox', params);
+    return this.apiCoreService.post('boxes/addBox', params);
   }
 
   editBox(params: RequestAddBox, id: number): Observable<boolean> {
-    return this.apiCoreService.patch(`/boxes/changeBox/${id}`, params);
+    return this.apiCoreService.patch(`boxes/changeBox/${id}`, params);
   }
 
   openBox(params: RequestOpenBox): Observable<boolean> {
-    return this.apiCoreService.post(`/boxes/open`, params);
+    return this.apiCoreService.post(`boxes/open`, params);
   }
 }

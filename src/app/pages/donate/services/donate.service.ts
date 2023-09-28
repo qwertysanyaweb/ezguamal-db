@@ -21,18 +21,18 @@ export class DonateService {
   }
 
   getList(params: RequestDonate): Observable<DonateResponse> {
-    return this.apiCoreService.get('/donate/getList', params);
+    return this.apiCoreService.get('donate/getList', params);
   }
 
   reports(params: DonateReportRequest): Observable<DonateReport[]> {
-    return this.apiCoreService.post('/donate/report', params);
+    return this.apiCoreService.post('donate/report', params);
   }
 
   getCategory(): Observable<DonateCategory[]> {
-    return this.apiCoreService.get('/donate/category', '');
+    return this.apiCoreService.get('donate/category', '');
   }
 
   addDonate(params: DonateAddRequest): Observable<boolean> {
-    return this.apiCoreService.post('/donate/add', params);
+    return this.apiCoreService.post('donate/add', params);
   }
 }
