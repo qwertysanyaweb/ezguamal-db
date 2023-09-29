@@ -1,6 +1,6 @@
-# База данных фонда EZGU AMAL
+# ресурсы фонда EZGU AMAL
 
-Сайт фонда `https://ezguamal.org/`
+Сайт фонда `https://ezguamal.org/`  
 База данных фонда `https://db.ezguamal.org/`
 
 ## Сборка

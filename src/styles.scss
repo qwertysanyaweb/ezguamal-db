@@ -667,35 +667,6 @@ h3 {
       }
     }
   }
-
-}
-
-.filter {
-  &__control {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-
-    &-left {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      white-space: nowrap;
-      flex-wrap: wrap;
-      flex-grow: 2;
-
-      select {
-        max-width: 150px;
-      }
-    }
-
-    &-right {
-      display: flex;
-      gap: 15px;
-    }
-  }
 }
 
 .boxes {
@@ -974,9 +945,35 @@ h3 {
   border-radius: 10px 0 0 10px;
   background: #fff;
   max-width: 650px;
-  padding: 30px;
+  padding: 20px;
   margin-left: auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    &-left {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      white-space: nowrap;
+      flex-wrap: wrap;
+      flex-grow: 2;
+
+      select {
+        max-width: 150px;
+      }
+    }
+
+    &-right {
+      display: flex;
+      gap: 15px;
+    }
+  }
 
   &__title {
     font-size: 20px;
@@ -1199,7 +1196,7 @@ jw-modal {
   border-radius: 10px;
   background: #fff;
   max-width: 650px;
-  padding: 30px;
+  padding: 20px;
   margin: 0 auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 
