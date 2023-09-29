@@ -73,7 +73,7 @@ body, html {
 body {
   margin: 0;
   line-height: 1.5;
-  font-size: 16px;
+  font-size: 15px;
   color: #000;
   font-family: $r;
   background: $color1;
@@ -93,8 +93,8 @@ input, textarea, select, button {
 input, textarea, select {
   display: block;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
+  height: 45px;
+  line-height: 45px;
   padding: 0 20px;
   background: none;
   box-shadow: none !important;
@@ -221,7 +221,7 @@ h3 {
   }
 
   &__title {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 7px;
     display: block;
 
@@ -274,7 +274,7 @@ h3 {
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 50px;
+  min-height: 45px;
   border: 0;
   border-radius: 5px;
   background: $color2;
@@ -289,7 +289,7 @@ h3 {
   }
 
   &.padding {
-    padding: 0 20px;
+    padding: 0 15px;
   }
 
   &.min {
@@ -368,20 +368,20 @@ h3 {
 /* СТРАНИЦА */
 .wrapper {
   position: relative;
-  padding: 20px 20px 20px 320px;
+  padding: 20px 20px 20px 290px;
   min-height: 100%;
 }
 
 .sidebar {
   position: fixed;
-  top: 20px;
-  left: 20px;
-  bottom: 20px;
-  width: 280px;
+  top: 15px;
+  left: 15px;
+  bottom: 15px;
+  width: 250px;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.02);
   background: #fff;
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 10px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -392,14 +392,14 @@ h3 {
     gap: 15px;
 
     img {
-      max-width: 70px;
+      max-width: 60px;
       display: block;
     }
 
     span {
       color: $color4;
       font-weight: 500;
-      font-size: 25px;
+      font-size: 20px;
     }
   }
 
@@ -422,7 +422,7 @@ h3 {
           display: flex;
           align-items: center;
           gap: 10px;
-          min-height: 50px;
+          min-height: 45px;
           padding: 5px 20px;
           border-radius: 5px;
           color: #000;
@@ -515,6 +515,8 @@ h3 {
     overflow-x: auto;
 
     .spinner-container {
+      overflow-x: auto;
+
       &:before {
         background: rgba(0, 0, 0, 0.1);
         z-index: 2;
@@ -593,7 +595,7 @@ h3 {
   }
 
   th {
-    padding: 15px;
+    padding: 10px;
     font-weight: 500;
     border-left: 1px solid $color1;
 
@@ -627,7 +629,7 @@ h3 {
   td {
     border-top: 1px solid $color1;
     border-left: 1px solid $color1;
-    padding: 15px;
+    padding: 10px;
 
     &:first-child {
       border-left: 0;
@@ -674,12 +676,19 @@ h3 {
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    flex-wrap: wrap;
 
     &-left {
       display: flex;
       gap: 20px;
       align-items: center;
       white-space: nowrap;
+      flex-wrap: wrap;
+      flex-grow: 2;
+
+      select {
+        max-width: 150px;
+      }
     }
 
     &-right {
@@ -711,7 +720,7 @@ h3 {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
   }
 
@@ -721,23 +730,24 @@ h3 {
     justify-content: center;
     align-items: center;
     gap: 20px;
+    line-height: 1;
 
     color: $color4;
     font-weight: 500;
-    font-size: 25px;
+    font-size: 22px;
 
     img {
-      max-width: 200px;
+      max-width: 150px;
     }
   }
 
   &__text {
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
   }
 
   &__menu {
-    max-width: 800px;
+    max-width: 600px;
     width: 100%;
 
     a {
@@ -745,17 +755,20 @@ h3 {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 150px;
+      height: 120px;
       background: #fff;
       box-shadow: 0 0 25px rgba(0, 0, 0, 0.02);
       border-radius: 20px;
-      font-size: 18px;
+      font-size: 16px;
       color: #000;
+      gap: 6px;
+      line-height: 1;
 
       svg {
-        height: 60px;
-        max-height: 60px;
+        height: 35px;
+        max-height: 35px;
         transition: all 0.4s ease;
+        display: block;
       }
 
       &:hover {
@@ -1020,6 +1033,7 @@ jw-modal {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
   }
 
   &__pageCount {
@@ -1029,14 +1043,14 @@ jw-modal {
     gap: 10px;
 
     input {
-      width: 40px;
+      width: 35px;
       padding: 5px;
       text-align: center;
       -moz-appearance: textfield;
       border: 1px solid $color2;
       background: #fff;
-      height: 40px;
-      line-height: 40px;
+      height: 35px;
+      line-height: 35px;
 
       &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -1047,15 +1061,17 @@ jw-modal {
     select {
       border: 1px solid $color2;
       background-color: #fff;
-      height: 40px;
-      line-height: 40px;
+      height: 35px;
+      line-height: 35px;
+      padding-left: 15px;
+      padding-right: 30px;
     }
 
     button {
-      min-width: 40px;
-      width: 40px;
-      min-height: 40px;
-      height: 40px;
+      min-width: 35px;
+      width: 35px;
+      min-height: 35px;
+      height: 35px;
     }
   }
 
@@ -1094,12 +1110,12 @@ jw-modal {
       }
 
       > a, > span {
-        min-width: 40px;
+        min-width: 35px;
         display: block;
-        height: 40px;
+        height: 35px;
         white-space: nowrap;
         padding: 0 6px;
-        line-height: 38px;
+        line-height: 33px;
         text-align: center;
         text-decoration: none;
         background: #FAFAFA;
@@ -1109,7 +1125,7 @@ jw-modal {
 
         > span {
           display: block;
-          line-height: 38px;
+          line-height: 33px;
         }
       }
 
@@ -1161,7 +1177,7 @@ jw-modal {
 
       &:before {
         font-size: 16px;
-        line-height: 38px;
+        line-height: 33px;
         content: '<' !important;
         margin: 0 !important;
         display: block !important;

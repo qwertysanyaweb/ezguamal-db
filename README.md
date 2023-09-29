@@ -1,6 +1,7 @@
 # База данных фонда EZGU AMAL
 
 Сайт фонда `https://ezguamal.org/`
+База данных фонда `https://db.ezguamal.org/`
 
 ## Сборка
 
@@ -10,4 +11,5 @@ Package Manager: npm 8.15.0
 
 ## Сохранить в прод
 
-ng build --prod --deploy-url="/wp-content/themes/ezguamal/dist/"
+ng build --prod --deploy-url="/wp-content/themes/ezguamal/dist/" --output-hashing=all
+
