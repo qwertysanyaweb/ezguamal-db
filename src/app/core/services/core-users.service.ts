@@ -20,6 +20,7 @@ export class CoreUsersService {
     'roles': [],
   };
 
+
   private readonly _isAuth = new BehaviorSubject<boolean>(false);
 
   public readonly isAuth$ = this._isAuth.asObservable();
@@ -28,15 +29,15 @@ export class CoreUsersService {
 
   public userData$ = this._userData$.asObservable();
 
+  private readonly _menuOpen = new BehaviorSubject<boolean>(false);
+
+  public readonly menuOpen$ = this._menuOpen.asObservable();
+
   constructor(
     @Inject(LOCAL_STORAGE) private readonly localStorage: Storage,
     private readonly router: Router,
     private readonly api: ApiCoreService,
   ) {
-  }
-
-  public get userData() {
-    return this._userData$.value;
   }
 
   public get authValue() {
@@ -109,5 +110,9 @@ export class CoreUsersService {
     const lang = <string>this.localStorage.getItem('language');
     this.localStorage.clear();
     this.localStorage.setItem('language', lang);
+  }
+
+  setOpenMenu(value: boolean) {
+    this._menuOpen.next(value);
   }
 }

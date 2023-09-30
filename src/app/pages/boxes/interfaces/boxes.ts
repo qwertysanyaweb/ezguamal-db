@@ -36,6 +36,7 @@ export interface RequestBoxes {
   p?: number;
   filter_boxNumber?: string;
   filter_brand?: any;
+  filter_group?: any;
   filter_category?: any;
   filter_startData?: string;
   filter_endData?: string;

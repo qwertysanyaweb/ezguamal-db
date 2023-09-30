@@ -1,10 +1,8 @@
-<ng-container *ngIf='loadingData'>
-  <div class='loading__text'>
-    <div [spinner]='true'>
-      {{ "MESSAGE.LOAD" | translate }}
-    </div>
+<div *ngIf='loadingData' class='loading__text'>
+  <div [spinner]='true'>
+    {{ "MESSAGE.LOAD" | translate }}
   </div>
-</ng-container>
+</div>
 
 <ng-container *ngIf='!loadingData'>
   <div class='content__block'>
@@ -15,9 +13,15 @@
         </select>
         {{ "BOXES.COUNT_BOX" | translate }}: {{ pagination.total }}
         <button *ngIf='rolesButton.add' [routerLink]='["./add"]'
-                class='siteButton min padding'>{{ "BOXES.ADD.BUTTON_ADD" | translate }}</button>
+                class='siteButton min padding filter-add'>
+          <svg height='512' viewBox='0 0 24 24' width='25' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M17,12c0,.276-.224,.5-.5,.5h-4v4c0,.276-.224,.5-.5,.5s-.5-.224-.5-.5v-4H7.5c-.276,0-.5-.224-.5-.5s.224-.5,.5-.5h4V7.5c0-.276,.224-.5,.5-.5s.5,.224,.5,.5v4h4c.276,0,.5,.224,.5,.5Zm7-7.5v15c0,2.481-2.019,4.5-4.5,4.5H4.5c-2.481,0-4.5-2.019-4.5-4.5V4.5C0,2.019,2.019,0,4.5,0h15c2.481,0,4.5,2.019,4.5,4.5Zm-1,0c0-1.93-1.57-3.5-3.5-3.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v15c0,1.93,1.57,3.5,3.5,3.5h15c1.93,0,3.5-1.57,3.5-3.5V4.5Z' />
+          </svg>
+
+          <span>{{ "BOXES.ADD.BUTTON_ADD" | translate }}</span></button>
         <button (click)='openModal("boxOpen")'
-                class='siteButton min blue padding'>{{ "BOXES.ADD_INFO_OPEN_BOX" | translate }}</button>
+                class='siteButton min blue padding filter-full'>{{ "BOXES.ADD_INFO_OPEN_BOX" | translate }}</button>
       </div>
       <div class='filter__control-right'>
         <button (click)='openModal("boxesReports")' *ngIf='rolesButton.report'
@@ -31,8 +35,8 @@
     <div class='content__bg'>
       <div *ngIf='boxes.length > 0'>
         <div class='content__table'>
-          <table [spinner]='changeData' class='table'>
-            <tr>
+          <table [spinner]='changeData' class='table table__mobile'>
+            <tr class='table__mobile-title'>
               <ng-container *ngFor='let th of table; let i = index'>
                 <ng-container *ngIf='requestData.post_status !== "publish" || th.value !== "box_dataClose"'>
                   <th [ngClass]='th.sortable ? "table__th-sort" : ""'>
@@ -55,31 +59,31 @@
                     totalItems: pagination.total
                   }'>
               <tr [ngClass]='box.post_status === "close" ? "table__tr-close" : ""'>
-                <td style='white-space: nowrap'>
+                <td data-title='{{ table[0].name | translate }}' style='white-space: nowrap'>
                   {{box.box_number}}
                 </td>
-                <td>
+                <td data-title='{{ table[1].name | translate }}'>
                   {{ box.brand[0].name }}
                 </td>
-                <td>
+                <td data-title='{{ table[2].name | translate }}'>
                   <ng-container *ngFor='let region of box.region; let i = index'>
                     <ng-container *ngIf='i !== 0'>,</ng-container>
                     {{ region.name }}
                   </ng-container>
                 </td>
-                <td>
+                <td data-title='{{ table[3].name | translate }}' style='min-width:280px'>
                   {{box.box_address}}
                 </td>
-                <td style='min-width:185px;'>
+                <td data-title='{{ table[4].name | translate }}' style='min-width:185px;'>
                   {{box.box_phone}}
                 </td>
-                <td>
+                <td data-title='{{ table[5].name | translate }}' style='min-width:280px'>
                   {{box.box_dataCreate}}
                 </td>
-                <td *ngIf='requestData.post_status != "publish"'>
+                <td *ngIf='requestData.post_status != "publish"' data-title='{{ table[6].name | translate }}'>
                   {{box.box_dataClose}}
                 </td>
-                <td *ngIf='rolesButton.edit' style='padding:5px;'>
+                <td *ngIf='rolesButton.edit' class='table__mobile-button' style='padding:5px;'>
                   <div class='contextmenu'>
                     <img alt='' src='assets/images/contextmenu.svg' />
                     <ul>
@@ -95,6 +99,14 @@
                         *ngIf='changeStateLoad'> <span [spinner]='true'></span></span></a></li>
                     </ul>
                   </div>
+                  <ul class='mobileButton'>
+                    <li><a [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
+                    <li><a [routerLink]='["./edit" , box.id]'>{{ "BUTTON.EDIT" | translate }}</a></li>
+                    <li *ngIf='box.post_status === "close"' class='delete'><a
+                      (click)='changeState(box.id ,"publish")'>{{ "BUTTON.OPEN" | translate }}</a></li>
+                    <li *ngIf='box.post_status !== "close" && !changeStateLoad' class='delete'><a
+                      (click)='changeState(box.id ,"close")'>{{ "BUTTON.CLOSE" | translate }} </a></li>
+                  </ul>
                 </td>
               </tr>
             </ng-container>

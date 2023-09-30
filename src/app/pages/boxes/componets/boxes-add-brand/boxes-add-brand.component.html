@@ -11,14 +11,14 @@
           </svg>
         </div>
       </div>
-      <div class='col-8'>
+      <div class='col-sm-8'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{"BOXES.ADD.BRAND.ADD.TITLE" | translate}}<span>*</span></span>
           <input appDynamicValidatorMessage formControlName='brandName'
                  placeholder='{{"BOXES.ADD.BRAND.ADD.PLACEHOLDER" | translate}}' type='text'>
         </label>
       </div>
-      <div class='col-lg-4'>
+      <div class='col-sm-4'>
         <button [disabled]='form.invalid' [spinner]='sendForm' class='siteButton block'
                 type='submit'>{{ "BUTTON.ADD" | translate }}</button>
       </div>

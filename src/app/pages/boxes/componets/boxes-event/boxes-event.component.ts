@@ -194,7 +194,6 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.boxesService.editBox(this.form.value, this.boxId).subscribe(() => {
         this.sendForm = false;
-        this.router.navigate(['/boxes']);
         this.notifierService.notify('success', this.translateService.instant('BOXES.SUCCESS.SAVE', {
           title: this.form.get('title')?.value,
           number: this.form.get('box_number')?.value,

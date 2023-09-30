@@ -11,8 +11,13 @@
     <div class='filter__control'>
       <div class='filter__control-left'>
         {{ "PAGINATION.COUNT_POST" | translate }}: {{ pagination.total }}
-        <button (click)='openModal("donateAdd")' class='siteButton min padding'
-                type='button'>{{ "BUTTON.ADD" | translate }}</button>
+        <button (click)='openModal("donateAdd")' class='siteButton min padding filter-add'
+                type='button'>
+          <svg height='512' viewBox='0 0 24 24' width='25' xmlns='http://www.w3.org/2000/svg'>
+            <path
+              d='M17,12c0,.276-.224,.5-.5,.5h-4v4c0,.276-.224,.5-.5,.5s-.5-.224-.5-.5v-4H7.5c-.276,0-.5-.224-.5-.5s.224-.5,.5-.5h4V7.5c0-.276,.224-.5,.5-.5s.5,.224,.5,.5v4h4c.276,0,.5,.224,.5,.5Zm7-7.5v15c0,2.481-2.019,4.5-4.5,4.5H4.5c-2.481,0-4.5-2.019-4.5-4.5V4.5C0,2.019,2.019,0,4.5,0h15c2.481,0,4.5,2.019,4.5,4.5Zm-1,0c0-1.93-1.57-3.5-3.5-3.5H4.5c-1.93,0-3.5,1.57-3.5,3.5v15c0,1.93,1.57,3.5,3.5,3.5h15c1.93,0,3.5-1.57,3.5-3.5V4.5Z' />
+          </svg>
+          <span>{{ "BUTTON.ADD" | translate }}</span></button>
       </div>
       <div class='filter__control-right'>
         <button (click)='openModal("donateReport")' class='siteButton min padding blue'
@@ -26,8 +31,8 @@
     <div class='content__bg'>
       <div *ngIf='donates.length > 0' class='content__overflow'>
         <div class='content__table'>
-          <table [spinner]='changeData' class='table'>
-            <tr>
+          <table [spinner]='changeData' class='table table__mobile'>
+            <tr class='table__mobile-title'>
               <ng-container *ngFor='let th of table; let i = index'>
                 <th (click)='donateSort(th.value , th.sort , i)' class='table__th-sort'>
                   <div>
@@ -45,15 +50,16 @@
                     currentPage: pagination.currentPage,
                     totalItems: pagination.total
                   }'>
-              <td style='padding:5px; font-size:0; line-height: 0;'>
+              <td data-title='{{ table[0].name | translate }}' style='padding:5px; font-size:0; line-height: 0;'>
                 <div class='table__pay-system'>
                   <img alt='' src='{{ donate.image }}'>
                 </div>
               </td>
-              <td>{{ donate.title }}</td>
-              <td>{{ donate.name }}</td>
-              <td>{{ donate.sign_time }}</td>
-              <td>{{ numberWithCommas(donate.amount) }} {{ donate.currency }}</td>
+              <td data-title='{{ table[1].name | translate }}'>{{ donate.title }}</td>
+              <td data-title='{{ table[2].name | translate }}'>{{ donate.name }}</td>
+              <td data-title='{{ table[3].name | translate }}'>{{ donate.sign_time }}</td>
+              <td
+                data-title='{{ table[4].name | translate }}'>{{ numberWithCommas(donate.amount) }} {{ donate.currency }}</td>
             </tr>
           </table>
         </div>

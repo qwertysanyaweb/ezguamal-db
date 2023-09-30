@@ -13,6 +13,24 @@
       </div>
       <div class='col-12'>
         <label class='formGroup'>
+          <span class='formGroup__title'>{{ "BOXES.REPORT.OBJECT.TITLE" | translate }} <span>*</span></span>
+          <ng-select
+            (change)='changeObject($event)'
+            [clearable]='false'
+            [items]='objectReport'
+            appDynamicValidatorMessage
+            bindLabel='name.{{lang}}'
+            bindValue='id'
+            clearAllText='{{ "SELECT.CLEAR_TEXT" | translate }}'
+            formControlName='objectReport'
+            notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
+            placeholder='{{ "BOXES.REPORT.OBJECT.PLACEHOLDER" | translate }}'
+          >
+          </ng-select>
+        </label>
+      </div>
+      <div *ngIf='form.get("objectReport")?.value === 1' class='col-12'>
+        <label class='formGroup'>
           <span class='formGroup__title'>{{ "DONATE.REPORT.ID.TITLE" | translate }} <span>*</span></span>
           <input appDynamicValidatorMessage formControlName='id'
                  placeholder='{{ "DONATE.REPORT.ID.PLACEHOLDER" | translate }}' type='text'>
@@ -38,7 +56,7 @@
           </ng-select>
         </label>
       </div>
-      <div class='col-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "DONATE.REPORT.DATE_FROM.TITLE" | translate }} <span>*</span></span>
           <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
@@ -48,7 +66,7 @@
                  placeholder='{{ "DONATE.REPORT.DATE_FROM.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "DONATE.REPORT.DATE_TO.TITLE" | translate }} <span>*</span></span>
           <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"

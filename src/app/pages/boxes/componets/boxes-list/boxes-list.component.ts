@@ -123,10 +123,17 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   filterSettings: FilterSettings = {
     data: {
       filter_boxNumber: {
-        col: 1,
+        col: 2,
         type: this.filterDataTypesEnum.INPUT,
         title: this.translateService.instant('BOXES.FILTER.NUMBER.TITLE'),
         placeholder: this.translateService.instant('BOXES.FILTER.NUMBER.PLACEHOLDER'),
+        data: [],
+      },
+      filter_group: {
+        col: 2,
+        type: this.filterDataTypesEnum.SELECT,
+        title: this.translateService.instant('BOXES.FILTER.GROUP.TITLE'),
+        placeholder: this.translateService.instant('BOXES.FILTER.GROUP.PLACEHOLDER'),
         data: [],
       },
       filter_brand: {
@@ -230,6 +237,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
       this.boxesStateService.category$.subscribe((response) => {
         this.filterSettings.data.filter_category.data = response.region;
         this.filterSettings.data.filter_brand.data = response.brand;
+        this.filterSettings.data.filter_group.data = response.group;
         this.filterStateService.setFilterSettings({ ...this.filterSettings });
       }),
     );
@@ -250,6 +258,7 @@ export class BoxesListComponent implements OnInit, OnDestroy {
     const object: RequestBoxes = {
       filter_boxNumber: confirm.filter_boxNumber ? confirm.filter_boxNumber : '',
       filter_brand: confirm.filter_brand ? confirm.filter_brand.join() : '',
+      filter_group: confirm.filter_group ? confirm.filter_group : '',
       filter_category: confirm.filter_category ? confirm.filter_category.join() : '',
       filter_startData: confirm.filter_startData ? this.dataTimeService.convertDate(confirm.filter_startData) : '',
       filter_endData: confirm.filter_endData ? this.dataTimeService.convertDate(confirm.filter_endData) : '',

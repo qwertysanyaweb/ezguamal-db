@@ -11,14 +11,14 @@
           </svg>
         </div>
       </div>
-      <div class='col-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.REPORT.NUMBER.TITLE" | translate }} <span>*</span></span>
           <input appDynamicValidatorMessage formControlName='boxNumber'
                  placeholder='{{ "BOXES.REPORT.NUMBER.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.DATE.TITLE" | translate }} <span>*</span></span>
           <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]='maxDate'
@@ -28,28 +28,28 @@
                  placeholder='{{ "DONATE.REPORT.DATE_FROM.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-lg-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.SUM.TITLE" | translate }}</span>
           <input appDynamicValidatorMessage formControlName='sum'
                  placeholder='{{ "BOXES.OPEN.FORM.SUM.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-lg-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.DOLLAR.TITLE" | translate }}</span>
           <input appDynamicValidatorMessage formControlName='dollar'
                  placeholder='{{ "BOXES.OPEN.FORM.DOLLAR.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-lg-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.EURO.TITLE" | translate }}</span>
           <input appDynamicValidatorMessage formControlName='euro'
                  placeholder='{{ "BOXES.OPEN.FORM.EURO.PLACEHOLDER" | translate }}' type='text'>
         </label>
       </div>
-      <div class='col-lg-6'>
+      <div class='col-sm-6'>
         <label class='formGroup'>
           <span class='formGroup__title'>{{ "BOXES.OPEN.FORM.RUB.TITLE" | translate }}</span>
           <input appDynamicValidatorMessage formControlName='rub'

@@ -34,7 +34,7 @@
       <div class='content__bg content__padding'>
         <div class='row'>
           <div class='col-12'><h2>{{ "BOXES.ADD.INFO_TITLE_1" | translate }}</h2></div>
-          <div class='col-lg-4'>
+          <div class='col-lg-4  col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.DATE.TITLE" | translate }} <span>*</span></span>
               <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]='maxDate'
@@ -42,21 +42,21 @@
                      placeholder='{{ "BOXES.ADD.FORM.DATE.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-4'>
+          <div class='col-lg-4  col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.TITLE.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='title'
                      placeholder='{{ "BOXES.ADD.FORM.TITLE.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-4'>
+          <div class='col-lg-4  col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.NUMBER.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='box_number'
                      placeholder='{{ "BOXES.ADD.FORM.NUMBER.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-6'>
+          <div class='col-lg-6  col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.GROUP.TITLE" | translate }} <span>*</span></span>
               <div class='formGroup__load'>
@@ -84,7 +84,7 @@
           </div>
           <div class='col-lg-6'>
             <div class='row  align-items-end'>
-              <div class='col-8'>
+              <div class='col-sm-8'>
                 <label class='formGroup'>
                   <span class='formGroup__title'>{{ "BOXES.ADD.FORM.BRAND.TITLE" | translate }} <span>*</span></span>
                   <div class='formGroup__load'>
@@ -110,7 +110,7 @@
                   </div>
                 </label>
               </div>
-              <div class='col-4'>
+              <div class='col-sm-4'>
                 <button (click)='openModal("addBrand")'
                         class='siteButton block' type='button'>{{"BOXES.ADD.BRAND.BUTTON" | translate}}</button>
               </div>
@@ -124,7 +124,7 @@
       <div class='content__bg content__padding'>
         <div class='row'>
           <div class='col-12'><h2>{{ "BOXES.ADD.INFO_TITLE_2" | translate }}</h2></div>
-          <div class='col-lg-6'>
+          <div class='col-lg-6 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.REGION.TITLE" | translate }} <span>*</span></span>
               <span class='formGroup__load'>
@@ -151,7 +151,7 @@
             </span>
             </label>
           </div>
-          <div class='col-lg-6'>
+          <div class='col-lg-6 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.COORDINATES.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage
@@ -160,14 +160,14 @@
                      type='text'>
             </label>
           </div>
-          <div class='col-lg-6'>
+          <div class='col-lg-6 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.ADDRESS.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='box_address'
                      placeholder='{{ "BOXES.ADD.FORM.ADDRESS.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-6'>
+          <div class='col-lg-6  col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.PHONE.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='box_phone'
@@ -179,27 +179,26 @@
     </div>
 
     <div class='content__block'>
-      <div class='filter__control'>
-        <div class='filter__control-left'></div>
-        <div class='filter__control-right'>
-          <ng-container *ngIf='boxId'>
+      <div class='buttonGroup'>
+        <ng-container *ngIf='boxId'>
 
-            <div>
-              <div *ngIf='dataBox.post_status === "close"'>
-                <button (click)='changeState(dataBox.id ,"publish")'
-                        [spinner]='changeStateLoad' class='siteButton min red padding'
-                        type='button'>{{ "BUTTON.OPEN" | translate }}</button>
-              </div>
-
-              <div *ngIf='dataBox.post_status !== "close"'>
-                <button (click)='changeState(dataBox.id ,"close")'
-                        [spinner]='changeStateLoad' class='siteButton min red padding'
-                        type='button'>{{ "BUTTON.CLOSE" | translate }}</button>
-              </div>
+          <div class='buttonGroup__left'>
+            <div *ngIf='dataBox.post_status === "close"'>
+              <button (click)='changeState(dataBox.id ,"publish")'
+                      [spinner]='changeStateLoad' class='siteButton min red padding'
+                      type='button'>{{ "BUTTON.OPEN" | translate }}</button>
             </div>
-          </ng-container>
+
+            <div *ngIf='dataBox.post_status !== "close"'>
+              <button (click)='changeState(dataBox.id ,"close")'
+                      [spinner]='changeStateLoad' class='siteButton min red padding'
+                      type='button'>{{ "BUTTON.CLOSE" | translate }}</button>
+            </div>
+          </div>
+        </ng-container>
 
 
+        <div class='buttonGroup__right'>
           <button *ngIf='event === eventType.add' [disabled]='form.invalid' [spinner]='sendForm'
                   class='siteButton min padding' type='submit'>{{ "BUTTON.ADD" | translate }}</button>
           <button *ngIf='boxId' [disabled]='form.invalid' [spinner]='sendForm'

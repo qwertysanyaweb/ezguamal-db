@@ -196,14 +196,23 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   font-size: 25px;
+  @media screen and (max-width: 767px) {
+    font-size: 20px;
+  }
 }
 
 h2 {
   font-size: 22px;
+  @media screen and (max-width: 767px) {
+    font-size: 18px;
+  }
 }
 
 h3 {
   font-size: 20px;
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 /* Общие компоненты */
@@ -352,6 +361,17 @@ h3 {
       box-shadow: none;
     }
   }
+
+  @media screen and (max-width: 767px) {
+    min-height: 35px;
+    height: 35px;
+    line-height: 1.2;
+    font-size: 14px;
+    &.min {
+      min-height: 35px;
+      height: 35px;
+    }
+  }
 }
 
 .required {
@@ -368,8 +388,27 @@ h3 {
 /* СТРАНИЦА */
 .wrapper {
   position: relative;
-  padding: 20px 20px 20px 290px;
+  padding: 15px 15px 15px 290px;
   min-height: 100%;
+  @media screen and (max-width: 1240px) {
+    padding: 15px 15px 15px 30px;
+    &.open {
+      .sidebar {
+        left: 0;
+
+        &__open {
+          padding: 0;
+
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 767px) {
+    padding: 15px 15px 130px;
+  }
 }
 
 .sidebar {
@@ -385,6 +424,7 @@ h3 {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  z-index: 10;
 
   &__logo {
     display: flex;
@@ -488,6 +528,94 @@ h3 {
     display: flex;
     gap: 15px;
   }
+
+  &__open {
+    display: none;
+    position: absolute;
+    right: -20px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    min-height: 40px;
+    border-radius: 10px;
+    padding-left: 15px;
+    padding-right: 0;
+
+    svg {
+      fill: #fff;
+    }
+  }
+
+  @media screen and (max-width: 1240px) {
+    padding: 15px;
+    left: -250px;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 10px 10px 0;
+    &__open {
+      display: flex;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    padding: 0;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    &__open {
+      display: none;
+    }
+    &__logo {
+      display: none;
+    }
+    &__menu {
+      margin: 0;
+      padding: 5px;
+
+      ul {
+        display: flex;
+        gap: 5px;
+
+        li {
+          margin: 0;
+          flex-grow: 2;
+
+          a {
+            flex-direction: column;
+            gap: 4px;
+            font-size: 13px;
+            padding: 7px 10px 2px;
+          }
+        }
+      }
+    }
+    &__bottom {
+      padding: 5px 5px 5px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: $color1;
+    }
+    &__userName {
+      margin: 0;
+      line-height: 1.2;
+    }
+    &__button {
+      flex-direction: row-reverse;
+
+      select {
+        height: 35px;
+        line-height: 35px;
+        min-height: 35px;
+        background-color: #fff;
+        border-color: #fff;
+      }
+    }
+  }
 }
 
 .content {
@@ -559,7 +687,42 @@ h3 {
 
     h1 {
       margin: 0;
+      flex-grow: 2;
+      white-space: normal;
     }
+  }
+
+  @media screen and (max-width: 767px) {
+    &__bg {
+      border-radius: 10px;
+    }
+
+    &__padding {
+      padding: 10px;
+    }
+  }
+}
+
+.mobileButton {
+  display: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  gap: 5px;
+  justify-content: space-between;
+
+  a {
+    line-height: 25px;
+    padding: 5px 10px;
+    background: $color2;
+    flex-grow: 2;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+
+  @media screen and (max-width: 767px) {
+    display: flex;
   }
 }
 
@@ -577,8 +740,10 @@ h3 {
       background: lighten($color1, 2%);
     }
 
-    &:hover {
-      background: lighten($color1, 1%);
+    @media screen and (min-width: 768px) {
+      &:hover {
+        background: lighten($color1, 1%);
+      }
     }
 
     &:first-child:hover {
@@ -667,6 +832,54 @@ h3 {
       }
     }
   }
+
+  @media screen and (max-width: 767px) {
+    &__mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 10px;
+
+      &-title {
+        display: none !important;
+      }
+
+      &-button {
+        &:before {
+          display: none;
+        }
+      }
+
+      tr {
+        display: block;
+        background: none;
+        border: 1px solid $color1;
+
+        &.table__tr-close {
+          border-color: rgba(255, 0, 0, 0.1);
+        }
+      }
+
+      td {
+        display: block;
+        border-left: 0;
+        text-align: left;
+
+        &:before {
+          content: attr(title) ': ';
+          font-weight: bold;
+        }
+
+        &:first-child {
+          border-top: 0;
+        }
+      }
+
+      .contextmenu {
+        display: none;
+      }
+    }
+  }
 }
 
 .boxes {
@@ -752,6 +965,32 @@ h3 {
       }
     }
   }
+
+  @media screen and (max-width: 767px) {
+    &__logo {
+      font-size: 20px;
+      gap: 10px;
+
+      img {
+        max-width: 100px;
+      }
+    }
+    &__menu {
+      a {
+        font-size: 14px;
+        height: 90px;
+      }
+
+      .row {
+        gap: 10px 0;
+        margin: 0 -5px;
+
+        > div {
+          padding: 0 5px;
+        }
+      }
+    }
+  }
 }
 
 
@@ -828,7 +1067,14 @@ h3 {
 .loading {
   &__text {
     font-size: 20px;
+    line-height: 1;
     font-weight: 500;
+  }
+
+  @media screen and (max-width: 767px) {
+    &__text {
+      font-size: 14px;
+    }
   }
 }
 
@@ -1001,6 +1247,76 @@ h3 {
     justify-content: flex-end;
     gap: 20px;
   }
+
+  &-add {
+    svg {
+      display: none;
+      fill: #fff;
+      height: 23px;
+      width: 23px;
+    }
+  }
+
+  @media screen and (max-width: 1240px) {
+    &-add {
+      padding: 7px !important;
+      margin-left: auto;
+
+      svg {
+        display: block;
+      }
+
+      span {
+        display: none;
+      }
+    }
+
+    &-full {
+      flex-grow: 2;
+    }
+
+    &__control {
+      gap: 10px;
+
+      &-left {
+        gap: 10px;
+        width: 100%;
+      }
+
+      &-right {
+        gap: 10px;
+        flex-grow: 2;
+
+        .siteButton {
+          flex-grow: 2;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1090px) {
+    &__control {
+      &-left {
+        select {
+          width: 105px;
+          padding-right: 30px;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 15px;
+    &__control {
+      &-left {
+        select {
+          max-width: none;
+          width: 100%;
+        }
+      }
+    }
+  }
 }
 
 jw-modal {
@@ -1023,6 +1339,12 @@ jw-modal {
     }
   }
 
+  @media screen and (max-width: 767px) {
+    .jw-modal {
+      display: block;
+      background: #fff;
+    }
+  }
 }
 
 .pagination {
@@ -1031,6 +1353,8 @@ jw-modal {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 10px;
+    overflow-x: auto;
   }
 
   &__pageCount {
@@ -1190,6 +1514,20 @@ jw-modal {
     }
   }
 
+  @media screen and (max-width: 767px) {
+    &__wrap {
+      flex-direction: column;
+    }
+    &__pageCount {
+      width: 100%;
+      display: none;
+
+      input {
+        width: 115px;
+      }
+    }
+  }
+
 }
 
 .donateModal {
@@ -1199,6 +1537,15 @@ jw-modal {
   padding: 20px;
   margin: 0 auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+
+  &__result {
+    overflow-x: auto;
+  }
+
+  @media screen and (max-width: 767px) {
+    padding: 15px;
+    border-radius: 0;
+  }
 
   &__title {
     display: flex;
@@ -1375,6 +1722,21 @@ jw-modal {
 
 .map {
   height: 400px;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-end;
+
+  &__left {
+    margin-right: auto;
+  }
+
+  &__right {
+    margin-left: auto;
+  }
 }
 
 /* КОМПОНЕТЫ */

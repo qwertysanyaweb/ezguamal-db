@@ -9,6 +9,9 @@ import { noSpaceValidators } from '../../../../core/validators/no-space.validato
 import { LatinLettersOnlyValidator } from '../../../../core/validators/latin-letters-only.validators';
 import { Subscription } from 'rxjs';
 import { DonateStateService } from '../../services/donate-state.service';
+import { DonateEnum } from '../../enum/donate.enum';
+import { LanguageService } from '../../../../core/services/language.service';
+import { Language } from '../../../../core/interfaces/language';
 
 const TRANSLATES = {
   ...ERROR_MESSAGES,
@@ -33,7 +36,8 @@ export class DonateReportComponent implements OnInit {
   result: DonateReport[] = [];
 
   form: FormGroup = this.fb.group({
-    id: [null, [Validators.required, noSpaceValidators('id'), LatinLettersOnlyValidator('id')]],
+    objectReport: [null, [Validators.required]],
+    id: [null, [noSpaceValidators('id'), LatinLettersOnlyValidator('id')]],
     systems: [null, Validators.required],
     dateFrom: [null, Validators.required],
     dateTo: [null, Validators.required],
@@ -41,17 +45,33 @@ export class DonateReportComponent implements OnInit {
 
   sendForm: boolean = false;
 
+  objectReport = [
+    { id: DonateEnum.ALL, name: { ru: 'Все ID', en: 'All IDs', uz: 'Barcha identifikatorlar' } },
+    { id: DonateEnum.WARD_ID, name: { ru: 'ID подопечного', en: 'Ward ID', uz: 'Bo\'lim identifikatori' } },
+  ];
+
+  lang: string = this.languageServices.getLang();
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly dateTimeService: DatetimeService,
     private readonly donateService: DonateService,
     private readonly donateStateService: DonateStateService,
     protected readonly modalService: ModalService,
+    private readonly languageServices: LanguageService,
   ) {
   }
 
   ngOnInit(): void {
+    this.subscriptions.add(
+      this.languageServices.listenerLang().subscribe((val) => {
+        this.lang = val.lang;
+      }),
+    );
+
     this.getCategory();
+
+    this.form.get('objectReport')?.setValue(0);
   }
 
   getCategory() {
@@ -60,6 +80,30 @@ export class DonateReportComponent implements OnInit {
         this.system = response;
       }),
     );
+  }
+
+  changePercent(value: any, i: number) {
+    this.result[i].result = this.result[i].amount - (this.result[i].amount / 100 * value);
+  }
+
+  changeObject(object: { id: number, name: Language }) {
+    this.form.get('id')?.setValue(null);
+
+    if (object.id === 1) {
+      this.form.get('id')?.addValidators(Validators.required);
+    } else {
+      this.form.get('id')?.removeValidators(Validators.required);
+    }
+
+    this.form.get('id')?.updateValueAndValidity();
+  }
+
+  numberWithCommas(amount: number | undefined) {
+    if (amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    } else {
+      return 0;
+    }
   }
 
   submit() {
@@ -84,19 +128,6 @@ export class DonateReportComponent implements OnInit {
         this.sendForm = false;
       }),
     );
-  }
-
-  changePercent(value: any, i: number) {
-    console.log(value);
-    this.result[i].result = this.result[i].amount - (this.result[i].amount / 100 * value);
-  }
-
-  numberWithCommas(amount: number | undefined) {
-    if (amount) {
-      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-    } else {
-      return 0;
-    }
   }
 
   close() {

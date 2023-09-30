@@ -48,6 +48,7 @@ export interface DonateReport {
 }
 
 export interface DonateReportRequest {
+  objectReport: number;
   system: string[],
   id: string,
   dateFrom: string,

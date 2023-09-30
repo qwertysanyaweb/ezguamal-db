@@ -1,4 +1,4 @@
-<div class='wrapper'>
+<div [ngClass]='openMenu ? "open" : "close"' class='wrapper'>
   <app-sidebar></app-sidebar>
   <div class='content'>
     <router-outlet></router-outlet>

@@ -24,6 +24,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   sidebarMenu: Menu[] = [];
 
+  openMenu: boolean = false;
+
   constructor(
     private readonly languageService: LanguageService,
     private readonly coreUsersService: CoreUsersService,
@@ -43,6 +45,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.changeMenu(user.roles);
       }),
     );
+  }
+
+  changeOpen(value: boolean) {
+    this.openMenu = value;
+    this.coreUsersService.setOpenMenu(value);
   }
 
   changeMenu(rolesId: any) {
