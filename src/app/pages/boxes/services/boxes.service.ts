@@ -33,8 +33,8 @@ export class BoxesService {
     return this.apiCoreService.get('boxes/category', '');
   }
 
-  addBrand(brandName: string): Observable<boolean> {
-    return this.apiCoreService.post('boxes/addBrand', { brandName });
+  addBrand(params: { brandName: string, description: string }): Observable<boolean> {
+    return this.apiCoreService.post('boxes/addBrand', params);
   }
 
   reports(params: RequestReport): Observable<ResponseReport> {

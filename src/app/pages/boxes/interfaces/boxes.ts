@@ -51,7 +51,8 @@ export interface BoxesPaginationParams {
 
 export interface BoxesCategory {
   id: number,
-  name: string
+  name: string,
+  description: string
 }
 
 export interface BoxesCategoryResponse {

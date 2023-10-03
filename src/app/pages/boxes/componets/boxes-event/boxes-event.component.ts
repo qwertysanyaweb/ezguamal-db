@@ -4,7 +4,7 @@ import { BoxesService } from '../../services/boxes.service';
 import { NotifierService } from 'angular-notifier';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Box, BoxesCategoryResponse } from '../../interfaces/boxes';
+import { Box, BoxesCategory, BoxesCategoryResponse } from '../../interfaces/boxes';
 import { ERROR_MESSAGES, VALIDATION_ERROR_MESSAGES } from '../../../../core/tokens/validation-error-message.token';
 import { noSpaceValidators } from '../../../../core/validators/no-space.validators';
 import { ModalService } from '../../../../core/services/modal.service';
@@ -162,6 +162,10 @@ export class BoxesEventComponent implements OnInit, OnDestroy {
 
   openModal(id: string) {
     this.modalService.open(id);
+  }
+
+  changeBrand(value: BoxesCategory) {
+    this.form.get('box_phone')?.setValue(value.description);
   }
 
   submit() {

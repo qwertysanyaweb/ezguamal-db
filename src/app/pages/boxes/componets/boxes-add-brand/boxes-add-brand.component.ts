@@ -17,6 +17,7 @@ export class BoxesAddBrandComponent {
 
   form: FormGroup = this.fb.group({
     brandName: [null, Validators.required],
+    description: [null],
   });
 
   sendForm: boolean = false;
@@ -37,12 +38,11 @@ export class BoxesAddBrandComponent {
 
   submit() {
     this.sendForm = true;
-    const brandName = this.form.get('brandName')?.value;
     this.subscriptions.add(
-      this.boxesService.addBrand(brandName).subscribe((response) => {
+      this.boxesService.addBrand(this.form.value).subscribe((response) => {
         this.sendForm = false;
         if (response) {
-          this.notifierService.notify('success', this.translateService.instant('BOXES.SUCCESS.ADD_CATEGORY', { brandName }));
+          this.notifierService.notify('success', this.translateService.instant('BOXES.SUCCESS.ADD_CATEGORY', { brandName: this.form.get('brandName')?.value }));
           this.boxesStateService.setChangeCategory(true);
           this.close();
           this.form.get('brandName')?.setValue('');

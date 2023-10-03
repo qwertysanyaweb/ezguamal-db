@@ -22,6 +22,13 @@
         <button [disabled]='form.invalid' [spinner]='sendForm' class='siteButton block'
                 type='submit'>{{ "BUTTON.ADD" | translate }}</button>
       </div>
+      <div class='col-12'>
+        <label class='formGroup'>
+          <span class='formGroup__title'>{{"BOXES.ADD.BRAND.PHONE.TITLE" | translate}}<span>*</span></span>
+          <input appDynamicValidatorMessage formControlName='description'
+                 placeholder='{{"BOXES.ADD.BRAND.PHONE.PLACEHOLDER" | translate}}' type='text'>
+        </label>
+      </div>
     </div>
   </div>
 </form>

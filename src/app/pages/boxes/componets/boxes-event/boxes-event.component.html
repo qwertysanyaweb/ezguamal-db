@@ -34,7 +34,7 @@
       <div class='content__bg content__padding'>
         <div class='row'>
           <div class='col-12'><h2>{{ "BOXES.ADD.INFO_TITLE_1" | translate }}</h2></div>
-          <div class='col-lg-4  col-sm-6'>
+          <div class='col-lg-4 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.DATE.TITLE" | translate }} <span>*</span></span>
               <input [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [maxDate]='maxDate'
@@ -42,21 +42,21 @@
                      placeholder='{{ "BOXES.ADD.FORM.DATE.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-4  col-sm-6'>
+          <div class='col-lg-4 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.TITLE.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='title'
                      placeholder='{{ "BOXES.ADD.FORM.TITLE.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-4  col-sm-6'>
+          <div class='col-lg-4 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.NUMBER.TITLE" | translate }} <span>*</span></span>
               <input appDynamicValidatorMessage formControlName='box_number'
                      placeholder='{{ "BOXES.ADD.FORM.NUMBER.PLACEHOLDER" | translate }}' type='text'>
             </label>
           </div>
-          <div class='col-lg-6  col-sm-6'>
+          <div class='col-lg-6 col-sm-6'>
             <label class='formGroup'>
               <span class='formGroup__title'>{{ "BOXES.ADD.FORM.GROUP.TITLE" | translate }} <span>*</span></span>
               <div class='formGroup__load'>
@@ -83,7 +83,7 @@
             </label>
           </div>
           <div class='col-lg-6'>
-            <div class='row  align-items-end'>
+            <div class='row align-items-end'>
               <div class='col-sm-8'>
                 <label class='formGroup'>
                   <span class='formGroup__title'>{{ "BOXES.ADD.FORM.BRAND.TITLE" | translate }} <span>*</span></span>
@@ -101,6 +101,7 @@
                         formControlName='brand'
                         notFoundText='{{ "SELECT.FILTER_TEXT" | translate }}'
                         placeholder='{{ "BOXES.ADD.FORM.BRAND.PLACEHOLDER" | translate }}'
+                        (change)='changeBrand($event)'
                       >
                       </ng-select>
                     </span>
@@ -199,10 +200,14 @@
 
 
         <div class='buttonGroup__right'>
-          <button *ngIf='event === eventType.add' [disabled]='form.invalid' [spinner]='sendForm'
-                  class='siteButton min padding' type='submit'>{{ "BUTTON.ADD" | translate }}</button>
-          <button *ngIf='boxId' [disabled]='form.invalid' [spinner]='sendForm'
-                  class='siteButton min padding' type='submit'>{{ "BUTTON.SAVE" | translate }}</button>
+          <div *ngIf='event === eventType.add'>
+            <button [disabled]='form.invalid' [spinner]='sendForm'
+                    class='siteButton min padding' type='submit'>{{ "BUTTON.ADD" | translate }}</button>
+          </div>
+          <div *ngIf='boxId'>
+            <button [disabled]='form.invalid' [spinner]='sendForm'
+                    class='siteButton min padding' type='submit'>{{ "BUTTON.SAVE" | translate }}</button>
+          </div>
         </div>
       </div>
     </div>
