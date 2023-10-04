@@ -40,6 +40,7 @@ export class BoxesOpenComponent {
 
   submit() {
     this.sendForm = true;
+
     this.subscriptions.add(
       this.boxesService.openBox(this.form.value).subscribe((response) => {
         this.sendForm = false;

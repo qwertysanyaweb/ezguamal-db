@@ -52,9 +52,9 @@ export class BoxesListComponent implements OnInit, OnDestroy {
     {
       name: 'BOXES.TABLE.BRAND',
       value: 'brand',
-      sort: true,
+      sort: false,
       showSort: false,
-      sortable: true,
+      sortable: false,
     },
     {
       name: 'BOXES.TABLE.REGION',
