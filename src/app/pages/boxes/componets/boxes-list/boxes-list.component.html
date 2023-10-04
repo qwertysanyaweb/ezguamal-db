@@ -59,7 +59,7 @@
                 <td data-title='{{ table[0].name | translate }}' style='white-space: nowrap'>
                   {{box.box_number}}
                 </td>
-                <td data-title='{{ table[1].name | translate }}'>
+                <td data-title='{{ table[1].name | translate }}' style='min-width:200px;'>
                   {{ box.brand[0].name }}
                 </td>
                 <td data-title='{{ table[2].name | translate }}'>
@@ -71,7 +71,7 @@
                 <td data-title='{{ table[3].name | translate }}' style='min-width:280px'>
                   {{box.box_address}}
                 </td>
-                <td data-title='{{ table[4].name | translate }}' style='min-width:185px;'>
+                <td data-title='{{ table[4].name | translate }}' style='max-width:185px; min-width:185px;'>
                   {{box.box_phone}}
                 </td>
                 <td data-title='{{ table[5].name | translate }}' style='min-width:280px'>
@@ -80,28 +80,32 @@
                 <td *ngIf='requestData.post_status != "publish"' data-title='{{ table[6].name | translate }}'>
                   {{box.box_dataClose}}
                 </td>
-                <td *ngIf='rolesButton.edit' class='table__mobile-button' style='padding:5px;'>
+                <td *ngIf='rolesButton.edit || rolesButton.view' class='table__mobile-button' style='padding:5px;'>
                   <div class='contextmenu'>
                     <img alt='' src='assets/images/contextmenu.svg' />
                     <ul>
-                      <li><a [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
-                      <li><a [routerLink]='["./edit" , box.id]'>{{ "BUTTON.EDIT" | translate }}</a></li>
-                      <li *ngIf='box.post_status === "close"' class='delete'><a
+                      <li *ngIf='rolesButton.view'><a
+                        [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
+                      <li *ngIf='rolesButton.edit'><a [routerLink]='["./edit" , box.id]'
+                      >{{ "BUTTON.EDIT" | translate }}</a></li>
+                      <li *ngIf='box.post_status === "close" && rolesButton.edit' class='delete'><a
                         (click)='changeState(box.id ,"publish")'>{{ "BUTTON.OPEN" | translate }} <span
                         *ngIf='changeStateLoad'>
                         <span [spinner]='true'></span>
                       </span></a></li>
-                      <li *ngIf='box.post_status !== "close"' class='delete'><a
+                      <li *ngIf='box.post_status !== "close" && rolesButton.edit' class='delete'><a
                         (click)='changeState(box.id ,"close")'>{{ "BUTTON.CLOSE" | translate }} <span
                         *ngIf='changeStateLoad'> <span [spinner]='true'></span></span></a></li>
                     </ul>
                   </div>
-                  <ul class='mobileButton'>
-                    <li><a [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
-                    <li><a [routerLink]='["./edit" , box.id]'>{{ "BUTTON.EDIT" | translate }}</a></li>
-                    <li *ngIf='box.post_status === "close"' class='delete'><a
+                  <ul class='mobileButton' *ngIf='rolesButton.edit || rolesButton.view'>
+                    <li *ngIf='rolesButton.view'><a
+                      [routerLink]='["./view" , box.id]'>{{ "BUTTON.VIEW" | translate }}</a></li>
+                    <li *ngIf='rolesButton.edit'><a
+                      [routerLink]='["./edit" , box.id]'>{{ "BUTTON.EDIT" | translate }}</a></li>
+                    <li *ngIf='box.post_status === "close" && rolesButton.edit' class='delete'><a
                       (click)='changeState(box.id ,"publish")'>{{ "BUTTON.OPEN" | translate }}</a></li>
-                    <li *ngIf='box.post_status !== "close" && !changeStateLoad' class='delete'><a
+                    <li *ngIf='box.post_status !== "close" && !changeStateLoad && rolesButton.edit' class='delete'><a
                       (click)='changeState(box.id ,"close")'>{{ "BUTTON.CLOSE" | translate }} </a></li>
                   </ul>
                 </td>

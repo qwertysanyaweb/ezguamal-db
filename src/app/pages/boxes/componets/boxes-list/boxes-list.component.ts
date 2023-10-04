@@ -182,14 +182,17 @@ export class BoxesListComponent implements OnInit, OnDestroy {
   accept() {
     this.subscriptions.add(
       this.coreUserService.userData$.subscribe((response) => {
-        if (response.roles.create_posts) {
-          this.rolesButton.add = response.roles.create_posts;
+        if (response.roles.boxes_add) {
+          this.rolesButton.add = response.roles.boxes_add;
+        }
+        if (response.roles.boxes_edit) {
+          this.rolesButton.edit = response.roles.boxes_edit;
+        }
+        if (response.roles.boxes_view) {
+          this.rolesButton.view = response.roles.boxes_view;
         }
         if (response.roles.boxes_report) {
           this.rolesButton.report = response.roles.boxes_report;
-        }
-        if (response.roles.edit_posts) {
-          this.rolesButton.edit = response.roles.edit_posts;
         }
       }),
     );
